@@ -19,7 +19,7 @@ async function legacyAccount(name: string, password: string, json: string, iter 
 describe('chuyển dữ liệu từ tài khoản cũ (mã hóa)', () => {
   it('mở đúng mật khẩu, từ chối sai mật khẩu', async () => {
     const acc = await legacyAccount('A', 'matkhau1', '{"x":1}');
-    expect(acc.ct).not.toContain('x');
+    expect(atob(acc.ct)).not.toContain('"x"'); // không lộ dữ liệu thô (so trên byte đã giải base64)
     expect(await unlockAccount(acc, 'matkhau1')).toBe('{"x":1}');
     await expect(unlockAccount(acc, 'sai')).rejects.toThrow('wrong-password');
   });
