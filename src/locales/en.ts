@@ -317,6 +317,8 @@ registerEn({
   "Đã sao lưu.": "Backed up.",
   "Sao lưu dữ liệu": "Back up data",
   "Khôi phục từ file sao lưu": "Restore from backup file",
+  "Sao lưu & khôi phục": "Backup & restore",
+  "Khôi phục thay toàn bộ dữ liệu hiện tại bằng nội dung file sao lưu (.json).": "Restoring replaces all current data with the contents of the backup (.json) file.",
   "lưu toàn bộ điểm, thành phần và cài đặt của bạn vào một file;": "saves all your scores, components and settings into one file;",
   "nạp lại file đó (dùng khi đổi máy hoặc phòng mất dữ liệu).": "loads that file back (use it when changing computers or in case data is lost).",
   "Xuất Excel tạo sheet “Bảng điểm” đúng bố cục form của trường (nhập lại được). Nhập Excel đọc được sheet đó, file KD Study gốc (sheet “Kết quả học tập”) hoặc bảng bất kỳ có tiêu đề cột chứa “môn”, “tín chỉ”, “điểm”.": "Export Excel creates a “Transcript” sheet in the university’s form layout (it can be imported again). Import Excel reads that sheet, the original KD Study file (sheet “Kết quả học tập”) or any table whose column headers contain “course”, “credits”, “score” (in Vietnamese).",

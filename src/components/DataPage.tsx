@@ -212,6 +212,14 @@ export function DataPage({ data, view, setView, session, onLogout, guide, onAdd,
 
       {view === 'data' && (<>
         <div className="card">
+          <CardTitle>{t('Sao lưu & khôi phục')}</CardTitle>
+          <p className="muted small">{t('Khôi phục thay toàn bộ dữ liệu hiện tại bằng nội dung file sao lưu (.json).')}</p>
+          <div className="btn-row">
+            <button className="accent" onClick={() => jsonRef.current?.click()}>{t('Khôi phục từ file sao lưu')}</button>
+            <button onClick={() => void doBackup()}>{t('Sao lưu dữ liệu')}</button>
+          </div>
+        </div>
+        <div className="card">
           <CardTitle hint={<ul>
             <li><b>{t('Riêng tư')}:</b> {t('file đọc ngay trên máy, không gửi đi đâu.')}</li>
             <li><b>{t('Định dạng')}:</b> {t('chỉ PDF có chữ (xuất từ cổng sinh viên); ảnh chụp dùng mục bên dưới.')}</li>
