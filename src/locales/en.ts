@@ -285,6 +285,8 @@ registerEn({
   "Khôi phục từ file sao lưu": "Restore from backup file",
   "Sao lưu & khôi phục": "Backup & restore",
   "Sinh viên": "Student",
+  "Tác giả": "Author",
+  "Xem trang giới thiệu của tác giả": "Visit the author’s portfolio",
   "Dữ liệu chỉ nằm trên máy này.": "Your data stays only on this computer.",
   "Dữ liệu được lưu cục bộ tại thư mục %APPDATA%\\BKalc, không mã hóa và không cần tài khoản hay mật khẩu. Ai dùng được máy và thư mục này đều đọc được điểm của bạn. BKalc không có chức năng đăng ký trực tuyến.": "Data is stored locally in the %APPDATA%\\BKalc folder, unencrypted, with no account or password. Anyone who can use this computer and folder can read your grades. BKalc has no online registration.",
   "Dữ liệu được lưu cục bộ trong trình duyệt của bạn, không mã hóa và không cần tài khoản hay mật khẩu. Ai dùng chung trình duyệt này đều xem được điểm của bạn. Xóa dữ liệu duyệt web hoặc đổi trình duyệt sẽ làm mất dữ liệu nếu chưa sao lưu. BKalc không có chức năng đăng ký trực tuyến.": "Data is stored locally in your browser, unencrypted, with no account or password. Anyone who shares this browser can see your grades. Clearing browsing data or switching browsers will lose the data unless you have a backup. BKalc has no online registration.",

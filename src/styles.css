@@ -95,7 +95,7 @@ input, select, textarea, button { font: inherit; color: inherit; }
 .sidefoot .iconbtn { width: 36px; height: 36px; }
 /* Ngôn ngữ và tài khoản mỗi thứ một dòng, không phụ thuộc độ dài tên tài khoản (chỉ khi thanh bên mở rộng). */
 .side:not(.collapsed) .sidefoot > .hide-narrow { flex: 0 0 100%; }
-main { flex: 1; min-width: 0; padding: var(--sp-5) 3cm var(--sp-5) var(--sp-2); }
+main { flex: 1; min-width: 0; padding: var(--sp-5) 3cm calc(var(--sp-5) + 40px) var(--sp-2); }
 .page { max-width: none; margin: 0; display: flex; flex-direction: column; gap: var(--sp-4); }
 .stack { display: flex; flex-direction: column; gap: var(--sp-3); }
 @media (max-width: 920px) {
@@ -104,7 +104,7 @@ main { flex: 1; min-width: 0; padding: var(--sp-5) 3cm var(--sp-5) var(--sp-2); 
   .brand { padding: 0 0 var(--sp-3); }
   .navitem { justify-content: center; padding: 10px; }
   .sidefoot { flex-direction: column; border-top: 0; }
-  main { padding: var(--sp-4) var(--sp-3); }
+  main { padding: var(--sp-4) var(--sp-3) calc(var(--sp-4) + 40px); }
 }
 @media (max-width: 600px) {
   .app { flex-direction: column; }
@@ -113,7 +113,7 @@ main { flex: 1; min-width: 0; padding: var(--sp-5) 3cm var(--sp-5) var(--sp-2); 
   .navitem { width: auto; flex: 1 1 40px; }
   .spacer { display: none; }
   .sidefoot { flex-direction: row; border-top: 0; margin: 0; padding: 0; }
-  main { padding: var(--sp-3); }
+  main { padding: var(--sp-3) var(--sp-3) calc(var(--sp-3) + 40px); }
 }
 
 /* ===== Đầu trang ===== */
@@ -651,3 +651,7 @@ button.accent { border-color: var(--accent); color: var(--accent-text); font-wei
 
 .modalbox.privacybox { max-width: 560px; max-height: 90vh; overflow-y: auto; } .privacybox h3 { margin: 0; } .privacybox p { margin: 0; }
 .privacylist { margin: 0; padding-left: 20px; display: grid; gap: 8px; font-size: var(--fs-md); color: var(--ink-2); }
+.credit { position: fixed; right: var(--sp-3); bottom: var(--sp-3); z-index: 40; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: var(--r-pill); background: var(--surface); color: var(--ink-2); border: 1px solid var(--line); box-shadow: var(--shadow-sm); font-size: 12px; text-decoration: none; }
+.credit b { color: var(--ink); font-weight: 600; }
+.credit:hover, .credit:focus-visible { color: var(--accent-text); border-color: var(--accent); }
+@media print { .credit { display: none; } }

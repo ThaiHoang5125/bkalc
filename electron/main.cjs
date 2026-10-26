@@ -1,5 +1,5 @@
 // Electron main process: tạo cửa sổ và lưu dữ liệu ra file JSON trong thư mục userData.
-const { app, BrowserWindow, ipcMain, dialog, Menu } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, Menu, shell } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const { createGuard } = require('./lock.cjs');
@@ -40,9 +40,11 @@ const guard = createGuard();
 let maintenance = false;
 let unlockWin = null;
 
+const PORTFOLIO = 'https://candid-truffle-741aaf.netlify.app/';
 function lockDown(win) {
   const wc = win.webContents;
-  wc.setWindowOpenHandler(() => ({ action: 'deny' }));
+  // Chỉ cho mở đúng trang portfolio của tác giả bằng trình duyệt ngoài; mọi cửa sổ khác đều bị chặn.
+  wc.setWindowOpenHandler(({ url }) => { if (url.startsWith(PORTFOLIO)) void shell.openExternal(url); return { action: 'deny' }; });
   wc.on('will-navigate', (e, url) => { if (!url.startsWith('file:') && app.isPackaged) e.preventDefault(); });
   wc.on('devtools-opened', () => { if (app.isPackaged && !maintenance) wc.closeDevTools(); });
   wc.on('before-input-event', (e, input) => {
