@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
-import { t } from '../i18n';
+import { LANGS, setLang, t, useLang } from '../i18n';
 
 /* ---------- Toast: thông báo nhỏ góc dưới giữa, tự tắt sau ~5 giây ---------- */
 interface ToastItem { id: number; text: string; undo: boolean }
@@ -121,4 +121,14 @@ export function ConfirmDialog({ title, children, confirmLabel, onConfirm, onCanc
         <div className="btn-row"><button type="button" onClick={onCancel}>{t('Hủy')}</button><button type="button" ref={okRef} className="primary" onClick={onConfirm}>{confirmLabel}</button></div>
       </div>
     </div>, document.body);
+}
+
+export function LangSwitch() {
+  const lang = useLang();
+  return (
+    <label className="langsw" title={t('Ngôn ngữ')}>
+      <span aria-hidden>🌐</span>
+      <select value={lang} onChange={(e) => setLang(e.target.value as 'vi' | 'en')} aria-label={t('Ngôn ngữ')}>{LANGS.map((l) => <option key={l.id} value={l.id}>{l.label}</option>)}</select>
+    </label>
+  );
 }

@@ -94,7 +94,7 @@ input, select, textarea, button { font: inherit; color: inherit; }
 .sidefoot { display: flex; align-items: center; gap: var(--sp-2); padding: var(--sp-2) 0 0; border-top: 1px solid var(--line); margin-top: var(--sp-2); flex-wrap: wrap; }
 .sidefoot .iconbtn { width: 36px; height: 36px; }
 /* Ngôn ngữ và tài khoản mỗi thứ một dòng, không phụ thuộc độ dài tên tài khoản (chỉ khi thanh bên mở rộng). */
-.side:not(.collapsed) .sidefoot > .hide-narrow, .side:not(.collapsed) .sidefoot > .acct { flex: 0 0 100%; }
+.side:not(.collapsed) .sidefoot > .hide-narrow { flex: 0 0 100%; }
 main { flex: 1; min-width: 0; padding: var(--sp-5) 3cm var(--sp-5) var(--sp-2); }
 .page { max-width: none; margin: 0; display: flex; flex-direction: column; gap: var(--sp-4); }
 .stack { display: flex; flex-direction: column; gap: var(--sp-3); }
@@ -535,15 +535,6 @@ dl.faq dt { font-weight: 700; margin-top: 10px; } dl.faq dd { margin: 2px 0 0; }
 /* ===== Đăng nhập, tài khoản ===== */
 .langsw { display: inline-flex; flex-direction: row; align-items: center; gap: 4px; color: var(--ink); font-size: var(--fs-sm); }
 .langsw select { min-height: 32px; font-size: var(--fs-sm); width: auto; }
-.acct { position: relative; }
-.acctbtn { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 2px 12px 2px 4px; border-radius: var(--r-pill); font-weight: 600; max-width: 100%; }
-.acctbtn svg { background: var(--accent); color: var(--accent-ink); border-radius: 50%; padding: 4px; box-sizing: content-box; width: 20px; height: 20px; }
-.acctname { max-width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.acctmenu { position: absolute; left: 0; bottom: calc(100% + 8px); min-width: 250px; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow-pop); padding: 6px; z-index: 50; display: grid; }
-.acctmenu button { text-align: left; background: transparent; border: 0; padding: 9px 12px; border-radius: var(--r-md); }
-.acctmenu button:hover { background: var(--hover); }
-.acctwho { padding: 8px 12px 10px; border-bottom: 1px solid var(--line); margin-bottom: 4px; display: grid; } .acctwho small { color: var(--muted); font-size: 12px; }
-@media (max-width: 920px) { .acctname { display: none; } .acctbtn { padding: 2px; } .acctmenu { left: 0; } }
 .gate { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; background: var(--bg); }
 .gatebox { width: 100%; max-width: 480px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 28px; box-shadow: var(--shadow-pop); border-top: 6px solid var(--accent); display: grid; gap: 12px; }
 .gatebrand { display: flex; align-items: center; gap: 12px; } .gatebrand .langsw { margin-left: auto; } .gatebrand small { display: block; color: var(--muted); }

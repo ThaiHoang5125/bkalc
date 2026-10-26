@@ -78,10 +78,10 @@ export function Guide({ go }: { go: Go }) {
       <Section id="data" title={t('Dữ liệu & cài đặt')} page="data" sub="data" go={go}>
         <Steps>
           <li><b>{t('Dữ liệu')}</b>{t(': nhập PDF, ảnh chụp màn hình (nhận dạng chữ ngay trên máy, có thể sai vài ô nên hãy xem lại) hoặc dán từ Excel. Menu ⋯ có nhập/xuất Excel, sao lưu và khôi phục.')}</li>
-          <li><b>{t('Cài đặt')}</b>{t(': chế độ Sáng / Tối / Theo hệ thống (có nút chuyển nhanh ở dưới thanh bên), ngôn ngữ, tài khoản, tổng số tín chỉ chương trình, quy tắc tính điểm và nút xóa toàn bộ dữ liệu.')}</li>
-          <li>{t('Một máy có thể có nhiều tài khoản; dữ liệu mỗi tài khoản được mã hóa bằng mật khẩu của nó. Quên mật khẩu thì không khôi phục được; hãy sao lưu (app nhắc sau 30 ngày).')}</li>
+          <li><b>{t('Cài đặt')}</b>{t(': chế độ Sáng / Tối / Theo hệ thống (có nút chuyển nhanh ở dưới thanh bên), ngôn ngữ, chính sách quyền riêng tư, tổng số tín chỉ chương trình, quy tắc tính điểm và nút xóa toàn bộ dữ liệu.')}</li>
+          <li>{t('App không cần tài khoản hay mật khẩu: mở là dùng được. Dữ liệu lưu không mã hóa trên máy này, nên hãy sao lưu (app nhắc sau 30 ngày).')}</li>
         </Steps>
-        <p className="warnbox"><b>{t('Quyền riêng tư:')}</b> {t('dữ liệu của bạn chỉ nằm trên máy này. App không gửi dữ liệu đi đâu, không quảng cáo, không theo dõi hành vi. Xem đầy đủ ở menu tài khoản → Quyền riêng tư.')}</p>
+        <p className="warnbox"><b>{t('Quyền riêng tư:')}</b> {t('dữ liệu của bạn chỉ nằm trên máy này. App không gửi dữ liệu đi đâu, không quảng cáo, không theo dõi hành vi. Xem đầy đủ ở Dữ liệu & cài đặt → Cài đặt → Quyền riêng tư.')}</p>
       </Section>
 
       <Section id="faq" title={t('Hỏi đáp nhanh')} go={go}>

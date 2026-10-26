@@ -11,16 +11,14 @@
 ## 1. BKalc lưu những gì
 
 - Dữ liệu học tập bạn nhập hoặc nhập từ bảng điểm: môn học, điểm, tín chỉ, kế hoạch học kỳ, thời khóa biểu, mục tiêu GPA.
-- Tên tài khoản trong app (một máy có thể có nhiều tài khoản).
 - Tùy chọn giao diện: ngôn ngữ, sáng/tối, thu gọn thanh bên, ngày bắt đầu tuần học đầu tiên.
 
 ## 2. Lưu ở đâu và được bảo vệ thế nào
 
 - **Bản cài đặt (.exe):** lưu trong thư mục `%APPDATA%\BKalc` trên máy bạn. Nếu máy còn thư mục cũ `%APPDATA%\HCMUT GPA` (tên cũ của app), BKalc sao chép dữ liệu sang thư mục mới ở lần chạy đầu và giữ nguyên bản cũ.
 - **Bản web (trình duyệt):** lưu trong bộ nhớ cục bộ (`localStorage`) của trình duyệt bạn đang dùng, không lưu trên máy chủ. Đổi trình duyệt hoặc xóa dữ liệu duyệt web sẽ làm mất dữ liệu nếu chưa sao lưu. Trang web được lưu trữ trên GitHub Pages nên GitHub có thể ghi nhật ký truy cập trang theo chính sách của họ; dữ liệu học tập của bạn không đi qua GitHub.
-- Dữ liệu của mỗi tài khoản được **mã hóa bằng khóa sinh từ mật khẩu** của tài khoản đó.
-- Tùy chọn giao diện không được mã hóa vì không nhạy cảm.
-- **Quên mật khẩu thì không ai khôi phục được, kể cả tác giả.** Bạn chỉ có thể xóa tài khoản rồi tạo lại, hoặc nạp lại từ file sao lưu.
+- BKalc **không có tài khoản hay mật khẩu**. Dữ liệu được lưu **không mã hóa** trên máy bạn, nên ai dùng được máy (hoặc trình duyệt) này đều có thể đọc được điểm của bạn. Máy dùng chung thì hãy dùng tài khoản người dùng riêng của hệ điều hành hoặc cửa sổ ẩn danh.
+- Người dùng bản cũ có tài khoản mã hóa: lần mở đầu tiên sau khi cập nhật, BKalc yêu cầu nhập mật khẩu cũ một lần để chuyển dữ liệu sang dạng lưu thường. Quên mật khẩu thì không ai khôi phục được, kể cả tác giả; bạn có thể bỏ dữ liệu cũ và bắt đầu mới, hoặc nạp lại từ file sao lưu.
 
 ## 3. Nhập bảng điểm (PDF / ảnh)
 
@@ -41,9 +39,9 @@ File bảng điểm được đọc **ngay trên thiết bị của bạn** (nh�
 ## 6. Quyền của bạn
 
 - **Sao lưu:** mục "Sao lưu dữ liệu" trong trang Dữ liệu & cài đặt.
-- **Xóa một tài khoản:** "Xóa tài khoản này…" ở màn hình đăng nhập (xóa vĩnh viễn dữ liệu tài khoản trên máy).
+- **Xóa dữ liệu trong app:** "Xóa tất cả…" trong Dữ liệu & cài đặt → Cài đặt.
 - **Xóa toàn bộ (bản .exe):** đóng BKalc, rồi xóa thư mục `%APPDATA%\BKalc` (và `%APPDATA%\HCMUT GPA` nếu còn). Nhập đường dẫn vào thanh địa chỉ của File Explorer để mở nhanh. Bản .exe chạy trực tiếp nên không cần gỡ cài đặt.
-- **Xóa toàn bộ (bản web):** xóa dữ liệu trang trong cài đặt trình duyệt, hoặc xóa từng tài khoản trong app.
+- **Xóa toàn bộ (bản web):** xóa dữ liệu trang trong cài đặt trình duyệt, hoặc dùng "Xóa tất cả…" trong app.
 
 ## 7. Lưu ý
 

@@ -1,37 +1,43 @@
 import { describe, expect, it } from 'vitest';
-import { changePassword, createAccount, emptyVault, nameTaken, parseStored, sealAccount, serialize, unlockAccount } from '../src/accounts';
+import { parseStored, unlockAccount } from '../src/accounts';
+import type { VaultAccount } from '../src/accounts';
+import { unlockLegacy } from '../src/persist';
 
-describe('tài khoản cục bộ (mã hóa)', () => {
-  it('tạo, mở đúng mật khẩu, từ chối sai mật khẩu', async () => {
-    const { account } = await createAccount('  Nguyễn  A ', 'matkhau1', '{"x":1}');
-    expect(account.name).toBe('Nguyễn A');
-    expect(account.ct).not.toContain('"x"'); // không lộ dữ liệu thô
-    expect((await unlockAccount(account, 'matkhau1')).json).toBe('{"x":1}');
-    await expect(unlockAccount(account, 'sai')).rejects.toThrow('wrong-password');
+const enc = new TextEncoder();
+const b64 = (b: Uint8Array) => btoa(String.fromCharCode(...b));
+
+/** Tạo một tài khoản đúng định dạng accounts-v1 của bản cũ (AES-GCM, khóa PBKDF2-SHA256), để kiểm thử việc chuyển dữ liệu. */
+async function legacyAccount(name: string, password: string, json: string, iter = 1000): Promise<VaultAccount> {
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const base = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']);
+  const key = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt, iterations: iter, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['encrypt']);
+  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, enc.encode(json)));
+  return { id: 'a1', name, salt: b64(salt), iter, iv: b64(iv), ct: b64(ct), created: 1, updated: 1 };
+}
+
+describe('chuyển dữ liệu từ tài khoản cũ (mã hóa)', () => {
+  it('mở đúng mật khẩu, từ chối sai mật khẩu', async () => {
+    const acc = await legacyAccount('A', 'matkhau1', '{"x":1}');
+    expect(acc.ct).not.toContain('x');
+    expect(await unlockAccount(acc, 'matkhau1')).toBe('{"x":1}');
+    await expect(unlockAccount(acc, 'sai')).rejects.toThrow('wrong-password');
   });
-  it('ghi lại dùng IV mới, vẫn mở được', async () => {
-    const { account, key } = await createAccount('A', 'abcd', '{"a":1}');
-    const next = await sealAccount(account, key, '{"a":2}');
-    expect(next.iv).not.toBe(account.iv);
-    expect((await unlockAccount(next, 'abcd')).json).toBe('{"a":2}');
+  it('unlockLegacy trả dữ liệu đã qua sanitize; dữ liệu hỏng thì trả dữ liệu trống', async () => {
+    const good = await legacyAccount('A', 'abcd', JSON.stringify({ version: 2, attempts: [], settings: {} }));
+    expect((await unlockLegacy(good, 'abcd')).attempts).toEqual([]);
+    const bad = await legacyAccount('B', 'abcd', 'khong phai json');
+    expect((await unlockLegacy(bad, 'abcd')).attempts).toEqual([]);
+    await expect(unlockLegacy(good, 'sai')).rejects.toThrow('wrong-password');
   });
-  it('đổi mật khẩu: mật khẩu cũ hết hiệu lực', async () => {
-    const { account } = await createAccount('A', 'abcd', '{"a":1}');
-    const { account: n } = await changePassword(account, 'abcd', 'efgh');
-    await expect(unlockAccount(n, 'abcd')).rejects.toThrow();
-    expect((await unlockAccount(n, 'efgh')).json).toBe('{"a":1}');
-    await expect(changePassword(account, 'sai', 'zzzz')).rejects.toThrow();
-  });
-  it('đọc file: dữ liệu cũ, vault mới, file hỏng', async () => {
-    expect(parseStored(null).legacy).toBeNull();
-    const old = JSON.stringify({ version: 2, attempts: [], settings: {} });
-    expect(parseStored(old).legacy).toBe(old);
-    const { account } = await createAccount('A', 'abcd', '{}');
-    const v = { ...emptyVault(), accounts: [account] };
-    const p = parseStored(serialize(v));
-    expect(p.vault.accounts).toHaveLength(1);
-    expect(p.legacy).toBeNull();
-    expect(nameTaken(p.vault, ' a ')).toBe(true);
-    expect(parseStored('{khong phai json').vault.accounts).toHaveLength(0);
+  it('đọc file: trống, dữ liệu thường, vault cũ, vault rỗng, file hỏng', async () => {
+    expect(parseStored(null)).toEqual({ kind: 'plain', json: null });
+    const plain = JSON.stringify({ version: 2, attempts: [], settings: {} });
+    expect(parseStored(plain)).toEqual({ kind: 'plain', json: plain });
+    const acc = await legacyAccount('A', 'abcd', '{}');
+    const locked = parseStored(JSON.stringify({ format: 'accounts-v1', accounts: [acc], last: 'a1' }));
+    expect(locked.kind === 'locked' && locked.accounts).toHaveLength(1);
+    expect(parseStored(JSON.stringify({ format: 'accounts-v1', accounts: [] }))).toEqual({ kind: 'plain', json: null });
+    expect(parseStored('{khong phai json')).toEqual({ kind: 'plain', json: null });
   });
 });

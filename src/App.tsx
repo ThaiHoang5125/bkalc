@@ -9,9 +9,8 @@ import { Timetable } from './components/Timetable';
 import { Transcript } from './components/Transcript';
 import { useStore } from './store';
 import type { AppData } from './engine';
-import type { Session } from './vault';
-import { AccountMenu, LangSwitch } from './components/Account';
-import { HistoryCtx, ToastHost } from './components/ui';
+import { saveData } from './persist';
+import { HistoryCtx, LangSwitch, ToastHost } from './components/ui';
 import { t, useLang } from './i18n';
 import { toggleTheme, useTheme } from './theme';
 import { QuickAddDialog, SearchDialog, SideSummary } from './components/SideExtras';
@@ -40,14 +39,14 @@ const ICONS: Record<Page, ReactNode> = {
 };
 export const NAV = (): [Page, string][] => [['overview', t('Tổng quan')], ['transcript', t('Bảng điểm')], ['goals', t('Mục tiêu')], ['semplan', t('Kế hoạch')], ['timetable', t('Xếp lịch')]];
 
-export function App({ session, onSession, onLogout }: { session: Session; onSession: (s: Session) => void; onLogout: () => void }) {
+export function App({ initial }: { initial: AppData }) {
   useLang();
   const [savedAt, setSavedAt] = useState<number | null>(null);
   const [saveFailed, setSaveFailed] = useState(false);
   const save = useCallback(async (d: AppData) => {
-    try { await session.save(d); setSavedAt(Date.now()); setSaveFailed(false); } catch (e) { setSaveFailed(true); throw e; }
-  }, [session.save]); // eslint-disable-line react-hooks/exhaustive-deps
-  const store = useStore(session.data, save);
+    try { await saveData(d); setSavedAt(Date.now()); setSaveFailed(false); } catch (e) { setSaveFailed(true); throw e; }
+  }, []);
+  const store = useStore(initial, save);
   const theme = useTheme();
   const [page, setPage] = useState<Page>('overview');
   const [collapsed, setCollapsed] = useState(readCollapsed);
@@ -114,7 +113,7 @@ export function App({ session, onSession, onLogout }: { session: Session; onSess
       <ToastHost onUndo={store.undo}>
         <div className="app">
           <nav className={`side${collapsed ? ' collapsed' : ''}`} aria-label={t('Điều hướng chính')}>
-            <div className="brand"><img className="logo" src="icon.svg" alt="" aria-hidden /><div className="brandtxt"><b>BKalc</b><span>{data.student?.name ?? session.name}</span></div></div>
+            <div className="brand"><img className="logo" src="icon.svg" alt="" aria-hidden /><div className="brandtxt"><b>BKalc</b><span>{data.student?.name ?? t('Sinh viên')}</span></div></div>
             <SideSummary data={data} onClick={() => go('overview')} />
             <button className="navitem addnow" onClick={() => setDialog('add')} title={t('Thêm môn nhanh')}><Ico><path d="M12 5v14M5 12h14" /></Ico><span className="navlabel">{t('Thêm môn nhanh')}</span></button>
             <button className="navitem" onClick={() => setDialog('search')} title={`${t('Tìm môn')} (Ctrl+K)`}><Ico><circle cx="11" cy="11" r="7" /><path d="M20 20l-4-4" /></Ico><span className="navlabel">{t('Tìm môn')}</span><kbd className="navkey">Ctrl + K</kbd></button>
@@ -133,7 +132,6 @@ export function App({ session, onSession, onLogout }: { session: Session; onSess
               <button className="iconbtn collapsebtn" onClick={toggleCollapsed} aria-label={collapsed ? t('Mở rộng thanh bên') : t('Thu gọn thanh bên')} title={collapsed ? t('Mở rộng thanh bên') : t('Thu gọn thanh bên')}>{collapsed ? '»' : '«'}</button>
               <button className="iconbtn" onClick={toggleTheme} aria-label={t('Chuyển Sáng / Tối')} title={theme.mode === 'dark' ? t('Đang ở chế độ Tối, bấm để chuyển sang Sáng') : t('Đang ở chế độ Sáng, bấm để chuyển sang Tối')}>{theme.mode === 'dark' ? '☀' : '☾'}</button>
               <span className="hide-narrow"><LangSwitch /></span>
-              <AccountMenu session={session} onSession={onSession} onGo={(sub) => go('data', sub)} onLogout={() => { void store.flush().finally(onLogout); }} />
             </div>
           </nav>
           <main>
@@ -142,7 +140,7 @@ export function App({ session, onSession, onLogout }: { session: Session; onSess
             {page === 'goals' && <Goals data={data} view={view('goals', 'target') as 'target' | 'courses'} setView={setSub('goals')} onSettings={store.updateSettings} onAdd={store.addAttempts} onUpdate={store.updateAttempt} onRemove={store.removeAttempt} />}
             {page === 'semplan' && <SemPlan data={data} onPlan={store.updatePlan} go={go} />}
             {page === 'timetable' && <Timetable data={data} step={subs.timetable as '1' | '2' | '3' | undefined} setStep={setSub('timetable')} plannedHere={(data.plan?.sems[data.timetable?.semester ?? ''] ?? []).map((x) => x.code)} onChange={store.updateTimetable} />}
-            {page === 'data' && <DataPage data={data} view={view('data', 'data') as 'data' | 'settings' | 'guide'} setView={setSub('data')} go={go} session={session} onSession={onSession} onLogout={() => { void store.flush().finally(onLogout); }} onAdd={store.addAttempts} onSettings={store.updateSettings} onReplace={store.replaceAll} onTranscript={store.applyTranscript} onProgress={store.applyProgress} guide={<Guide go={go} />} />}
+            {page === 'data' && <DataPage data={data} view={view('data', 'data') as 'data' | 'settings' | 'guide'} setView={setSub('data')} go={go} onAdd={store.addAttempts} onSettings={store.updateSettings} onReplace={store.replaceAll} onTranscript={store.applyTranscript} onProgress={store.applyProgress} guide={<Guide go={go} />} />}
           </main>
           {dialog === 'add' && <QuickAddDialog data={data} onAdd={store.addAttempts} onClose={() => setDialog(null)} />}
           {dialog === 'search' && <SearchDialog attempts={data.attempts} onClose={() => setDialog(null)} onPick={(q) => { setDialog(null); setJump((j) => ({ q, n: j.n + 1 })); go('transcript', 'sem'); }} />}

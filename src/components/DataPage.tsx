@@ -14,7 +14,7 @@ import { CardTitle, Menu, PageHeader, useToast } from './ui';
 import { setTheme, useTheme } from '../theme';
 import type { ThemePref } from '../theme';
 import { writeBackup } from '../backup';
-import type { Session } from '../vault';
+import { PrivacyDialog } from './Privacy';
 import type { Go } from '../App';
 
 type View = 'data' | 'settings' | 'guide';
@@ -23,9 +23,6 @@ interface Props {
   view: View;
   setView: (v: View) => void;
   go: Go;
-  session: Session;
-  onSession: (s: Session) => void;
-  onLogout: () => void;
   guide: ReactNode;
   onAdd: (rows: Attempt[]) => void;
   onSettings: (p: Partial<Settings>) => void;
@@ -51,13 +48,14 @@ function Warnings({ list, ocr }: { list: string[]; ocr?: boolean }) {
   );
 }
 
-export function DataPage({ data, view, setView, session, onLogout, guide, onAdd, onSettings, onReplace, onTranscript, onProgress }: Props) {
+export function DataPage({ data, view, setView, guide, onAdd, onSettings, onReplace, onTranscript, onProgress }: Props) {
   useLang();
   const toast = useToast();
   const theme = useTheme();
   const [text, setText] = useState('');
   const [sem, setSem] = useState(semesterLabel(semesterAt()));
   const [errMsg, setErrMsg] = useState<string | null>(null);
+  const [privacy, setPrivacy] = useState(false);
   const setMsg = (m: { kind: 'ok' | 'err'; text: string } | null) => { if (!m) setErrMsg(null); else if (m.kind === 'err') setErrMsg(m.text); else { setErrMsg(null); toast(m.text, { undo: true }); } };
   const [errors, setErrors] = useState<{ line: number; text: string; reason: string }[]>([]);
   const [confirmClear, setConfirmClear] = useState(false);
@@ -167,6 +165,8 @@ export function DataPage({ data, view, setView, session, onLogout, guide, onAdd,
 
       {view === 'guide' && guide}
 
+      {privacy && <PrivacyDialog onClose={() => setPrivacy(false)} />}
+
       {view === 'settings' && (<>
         <div className="card">
           <CardTitle>{t('Giao diện')}</CardTitle>
@@ -174,8 +174,8 @@ export function DataPage({ data, view, setView, session, onLogout, guide, onAdd,
             <div className="seg" role="group" aria-label={t('Chế độ màu')}>{themes.map(([k, l]) => <button key={k} aria-pressed={theme.pref === k} onClick={() => setTheme(k)}>{l}</button>)}</div></div>
           <div className="setrow"><div className="lbl"><b>{t('Ngôn ngữ')}</b></div>
             <select value={lang} onChange={(e) => setLang(e.target.value as 'vi' | 'en')} aria-label={t('Ngôn ngữ')}>{LANGS.map((l) => <option key={l.id} value={l.id}>{l.label}</option>)}</select></div>
-          <div className="setrow"><div className="lbl"><b>{t('Tài khoản')}</b><small>{session.name}</small></div>
-            <button onClick={onLogout}>{t('Đăng xuất / đổi tài khoản')}</button></div>
+          <div className="setrow"><div className="lbl"><b>{t('Quyền riêng tư')}</b><small>{t('Dữ liệu chỉ nằm trên máy này.')}</small></div>
+            <button onClick={() => setPrivacy(true)}>{t('Chính sách và Quyền riêng tư')}</button></div>
         </div>
 
         <div className="card">
