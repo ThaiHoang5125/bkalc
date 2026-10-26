@@ -124,9 +124,18 @@ export function AccountMenu({ session, onSession, onLogout, onGo }: { session: S
   const [o, setO] = useState(''); const [n1, setN1] = useState(''); const [n2, setN2] = useState('');
   const [err, setErr] = useState(''); const [ok, setOk] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
+  // Menu đặt theo toạ độ màn hình (position: fixed) để không bị cắt bởi thanh bên (overflow) khi thanh bên hẹp.
+  const [pos, setPos] = useState<{ left: number; bottom: number } | null>(null);
+  const toggle = () => {
+    if (!open && btnRef.current) { const r = btnRef.current.getBoundingClientRect(); setPos({ left: Math.max(8, r.left), bottom: window.innerHeight - r.top + 8 }); }
+    setOpen((v) => !v);
+  };
   useEffect(() => {
     const h = (e: MouseEvent) => { if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false); };
-    document.addEventListener('mousedown', h); return () => document.removeEventListener('mousedown', h);
+    const close = () => setOpen(false);
+    document.addEventListener('mousedown', h); window.addEventListener('resize', close);
+    return () => { document.removeEventListener('mousedown', h); window.removeEventListener('resize', close); };
   }, []);
   const close = () => { setDlg(null); setO(''); setN1(''); setN2(''); setErr(''); setOk(false); };
   const submitPw = async (e: React.FormEvent) => {
@@ -136,12 +145,12 @@ export function AccountMenu({ session, onSession, onLogout, onGo }: { session: S
   };
   return (
     <div className="acct" ref={ref}>
-      <button className="acctbtn" onClick={() => setOpen((v) => !v)} aria-haspopup="menu" aria-expanded={open} aria-label={t('Tài khoản')} title={t('Tài khoản')}>
+      <button className="acctbtn" ref={btnRef} onClick={toggle} aria-haspopup="menu" aria-expanded={open} aria-label={t('Tài khoản')} title={t('Tài khoản')}>
         <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden><circle cx="12" cy="8" r="4" fill="currentColor" /><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z" fill="currentColor" /></svg>
         <span className="acctname">{session.name}</span>
       </button>
-      {open && (
-        <div className="acctmenu" role="menu">
+      {open && pos && (
+        <div className="acctmenu" role="menu" style={{ position: 'fixed', left: pos.left, bottom: pos.bottom, maxWidth: `calc(100vw - ${pos.left + 8}px)` }}>
           <div className="acctwho"><b>{session.name}</b><small>{t('Đang đăng nhập · dữ liệu chỉ ở máy này')}</small></div>
           {onGo && <button role="menuitem" onClick={() => { setOpen(false); onGo('data'); }}>{t('Dữ liệu: nhập, sao lưu')}</button>}
           {onGo && <button role="menuitem" onClick={() => { setOpen(false); onGo('settings'); }}>{t('Cài đặt')}</button>}

@@ -93,6 +93,8 @@ input, select, textarea, button { font: inherit; color: inherit; }
 .spacer { flex: 1; }
 .sidefoot { display: flex; align-items: center; gap: var(--sp-2); padding: var(--sp-2) 0 0; border-top: 1px solid var(--line); margin-top: var(--sp-2); flex-wrap: wrap; }
 .sidefoot .iconbtn { width: 36px; height: 36px; }
+/* Ngôn ngữ và tài khoản mỗi thứ một dòng, không phụ thuộc độ dài tên tài khoản (chỉ khi thanh bên mở rộng). */
+.side:not(.collapsed) .sidefoot > .hide-narrow, .side:not(.collapsed) .sidefoot > .acct { flex: 0 0 100%; }
 main { flex: 1; min-width: 0; padding: var(--sp-5) 3cm var(--sp-5) var(--sp-2); }
 .page { max-width: none; margin: 0; display: flex; flex-direction: column; gap: var(--sp-4); }
 .stack { display: flex; flex-direction: column; gap: var(--sp-3); }
