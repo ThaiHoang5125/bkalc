@@ -45,7 +45,7 @@ export function LegacyGate({ accounts, onDone }: { accounts: VaultAccount[]; onD
       <div className="gatebox">
         <div className="gatebrand"><img className="logo" src="icon.svg" alt="" aria-hidden /><div><b>BKalc</b><small>{t('Điểm tích lũy & tiến độ học tập')}</small></div><LangSwitch /></div>
         <h2>{t('Chuyển dữ liệu từ bản cũ')}</h2>
-        <p className="muted small">{t('BKalc không còn dùng tài khoản và mật khẩu. Nhập mật khẩu cũ một lần để mở dữ liệu; sau đó dữ liệu được lưu thẳng trên máy và app vào luôn, không hỏi mật khẩu nữa.')}</p>
+        <p className="muted small">{t('Phiên bản mới của BKalc không yêu cầu đăng nhập. Để giữ lại dữ liệu đã lưu, vui lòng xác thực bằng mật khẩu cũ một lần. Sau bước này, dữ liệu được lưu trực tiếp trên thiết bị của bạn và ứng dụng sẽ mở thẳng ở những lần sau.')}</p>
 
         {many && (
           <div className="acclist" role="radiogroup" aria-label={t('Chọn tài khoản')}>
