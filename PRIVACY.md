@@ -1,6 +1,6 @@
 # Chính sách quyền riêng tư – BKalc
 
-Áp dụng từ BKalc 1.0.x · Cập nhật lần cuối: 26/10/2026
+Áp dụng từ BKalc 1.0.x · Cập nhật lần cuối: 27/10/2026
 
 ## Tóm tắt
 
@@ -16,14 +16,15 @@
 
 ## 2. Lưu ở đâu và được bảo vệ thế nào
 
-- **Bản cài đặt (.exe):** lưu trong thư mục `%APPDATA%\HCMUT GPA` trên máy bạn. Đây là tên thư mục cũ của BKalc (app từng có tên khác), được giữ nguyên để người dùng cũ không mất dữ liệu.
+- **Bản cài đặt (.exe):** lưu trong thư mục `%APPDATA%\BKalc` trên máy bạn. Nếu máy còn thư mục cũ `%APPDATA%\HCMUT GPA` (tên cũ của app), BKalc sao chép dữ liệu sang thư mục mới ở lần chạy đầu và giữ nguyên bản cũ.
+- **Bản web (trình duyệt):** lưu trong bộ nhớ cục bộ (`localStorage`) của trình duyệt bạn đang dùng, không lưu trên máy chủ. Đổi trình duyệt hoặc xóa dữ liệu duyệt web sẽ làm mất dữ liệu nếu chưa sao lưu. Trang web được lưu trữ trên GitHub Pages nên GitHub có thể ghi nhật ký truy cập trang theo chính sách của họ; dữ liệu học tập của bạn không đi qua GitHub.
 - Dữ liệu của mỗi tài khoản được **mã hóa bằng khóa sinh từ mật khẩu** của tài khoản đó.
 - Tùy chọn giao diện không được mã hóa vì không nhạy cảm.
 - **Quên mật khẩu thì không ai khôi phục được, kể cả tác giả.** Bạn chỉ có thể xóa tài khoản rồi tạo lại, hoặc nạp lại từ file sao lưu.
 
 ## 3. Nhập bảng điểm (PDF / ảnh)
 
-File bảng điểm được đọc và nhận dạng chữ (OCR) **ngay trên máy bạn**, không tải lên đâu cả. BKalc chỉ lưu kết quả đã nhập, không giữ lại file gốc.
+File bảng điểm được đọc **ngay trên thiết bị của bạn** (nhận dạng chữ OCR chỉ có ở bản .exe), không tải lên đâu cả. BKalc chỉ lưu kết quả đã nhập, không giữ lại file gốc.
 
 ## 4. File sao lưu và file xuất
 
@@ -41,7 +42,8 @@ File bảng điểm được đọc và nhận dạng chữ (OCR) **ngay trên m
 
 - **Sao lưu:** mục "Sao lưu dữ liệu" trong trang Dữ liệu & cài đặt.
 - **Xóa một tài khoản:** "Xóa tài khoản này…" ở màn hình đăng nhập (xóa vĩnh viễn dữ liệu tài khoản trên máy).
-- **Xóa toàn bộ:** đóng BKalc, rồi xóa thư mục `%APPDATA%\HCMUT GPA` (nhập đường dẫn này vào thanh địa chỉ của File Explorer để mở nhanh). Bản .exe chạy trực tiếp nên không cần gỡ cài đặt.
+- **Xóa toàn bộ (bản .exe):** đóng BKalc, rồi xóa thư mục `%APPDATA%\BKalc` (và `%APPDATA%\HCMUT GPA` nếu còn). Nhập đường dẫn vào thanh địa chỉ của File Explorer để mở nhanh. Bản .exe chạy trực tiếp nên không cần gỡ cài đặt.
+- **Xóa toàn bộ (bản web):** xóa dữ liệu trang trong cài đặt trình duyệt, hoặc xóa từng tài khoản trong app.
 
 ## 7. Lưu ý
 

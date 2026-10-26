@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import type { Session } from '../vault';
 import { MIN_PASSWORD, changeAccountPassword, getVault, hasLegacy, login, register, removeAccount } from '../vault';
 import { LANGS, setLang, t, useLang } from '../i18n';
-import { PRIVACY_ITEMS, PRIVACY_SUMMARY, acceptPrivacy, hasAcceptedPrivacy } from '../privacy';
+import { PRIVACY_SUMMARY, acceptPrivacy, hasAcceptedPrivacy, privacyItems } from '../privacy';
 
 /** Cửa sổ chính sách và quyền riêng tư. Có `onAccept` thì hiện ô tick + nút Đồng ý (màn hình đăng nhập); không có thì chỉ đọc. */
 export function PrivacyDialog({ onClose, onAccept }: { onClose: () => void; onAccept?: () => void }) {
@@ -14,7 +14,7 @@ export function PrivacyDialog({ onClose, onAccept }: { onClose: () => void; onAc
       <div className="modalbox privacybox">
         <h3>🔒 {t('Chính sách và Quyền riêng tư')}</h3>
         <p>{t(PRIVACY_SUMMARY)}</p>
-        <ol className="privacylist">{PRIVACY_ITEMS.map((x) => <li key={x}>{t(x)}</li>)}</ol>
+        <ol className="privacylist">{privacyItems().map((x) => <li key={x}>{t(x)}</li>)}</ol>
         {onAccept && <label className="check small"><input type="checkbox" checked={tick} onChange={(e) => setTick(e.target.checked)} /> {t('Tôi đã đọc và đồng ý với chính sách quyền riêng tư')}</label>}
         <div className="btn-row">
           {onAccept && <button className="primary" disabled={!tick} onClick={onAccept}>{t('Đồng ý')}</button>}

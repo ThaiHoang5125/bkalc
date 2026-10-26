@@ -3,9 +3,10 @@ const { app, BrowserWindow, ipcMain, dialog, Menu } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const { createGuard } = require('./lock.cjs');
+const { resolveUserDataDir } = require('./userdata.cjs');
 
-// Giữ nguyên thư mục dữ liệu cũ (tên app trước đây là 'HCMUT GPA') để không mất tài khoản đã lưu.
-app.setPath('userData', path.join(app.getPath('appData'), 'HCMUT GPA'));
+// Dữ liệu nằm ở %APPDATA%\BKalc; nếu máy còn thư mục cũ 'HCMUT GPA' thì sao chép sang (giữ nguyên bản cũ) để không mất tài khoản đã lưu.
+app.setPath('userData', resolveUserDataDir(path.join(app.getPath('appData'), 'HCMUT GPA'), path.join(app.getPath('appData'), 'BKalc')));
 
 const dataFile = () => path.join(app.getPath('userData'), 'gpa-data.json');
 
