@@ -1,0 +1,581 @@
+{
+ "_ghiChu": "DỮ LIỆU VÍ DỤ: điểm số là số giả lập, không phải điểm của bất kỳ ai. Chỉ dùng để chạy kiểm thử.",
+ "attempts": [
+  {
+   "id": "amvhnho3p10kjdh",
+   "code": "EE1001",
+   "name": "Nhập môn Về kỹ Thuật",
+   "credits": 3,
+   "score": 6.2,
+   "officialLetter": "C",
+   "semester": "Năm học 2023 - 2024 / Học kỳ 1",
+   "group": "L05",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3p11kjlk",
+   "code": "MT1003",
+   "name": "Giải tích 1",
+   "credits": 4,
+   "score": 6.3,
+   "officialLetter": "C",
+   "semester": "Năm học 2023 - 2024 / Học kỳ 1",
+   "group": "L15",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3p122qjz",
+   "code": "LA1005",
+   "name": "Anh văn 2",
+   "credits": 2,
+   "score": 7.5,
+   "officialLetter": "B",
+   "semester": "Năm học 2023 - 2024 / Học kỳ 1",
+   "group": "L30",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3p13lk7g",
+   "code": "PH1007",
+   "name": "Thí nghiệm Vật lý",
+   "credits": 1,
+   "score": 8.3,
+   "officialLetter": "B+",
+   "semester": "Năm học 2023 - 2024 / Học kỳ 1",
+   "group": "L24",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3p14j4tx",
+   "code": "PH1003",
+   "name": "Vật lý 1",
+   "credits": 4,
+   "score": 8.9,
+   "officialLetter": "A",
+   "semester": "Năm học 2023 - 2024 / Học kỳ 1",
+   "group": "L21",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3p1514b6",
+   "code": "MT1007",
+   "name": "Đại số Tuyến tính",
+   "credits": 3,
+   "score": 8,
+   "officialLetter": "B+",
+   "semester": "Năm học 2023 - 2024 / Học kỳ 1",
+   "group": "L03",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3p16274d",
+   "code": "PE1009",
+   "name": "Bóng đá (Học phần 1)",
+   "credits": 0,
+   "score": 5.7,
+   "officialLetter": "C",
+   "semester": "Năm học 2023 - 2024 / Học kỳ 1",
+   "group": "L14",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3p17fcm7",
+   "code": "LA1007",
+   "name": "Anh văn 3",
+   "credits": 2,
+   "score": null,
+   "special": "MT",
+   "semester": "Năm học 2023 - 2024 / Học kỳ 1",
+   "source": "transcript",
+   "note": "226/BKDT- 17/01/2024"
+  },
+  {
+   "id": "amvhnho3p18xs5a",
+   "code": "LA1005",
+   "name": "Anh văn 2",
+   "credits": 2,
+   "score": null,
+   "special": "MT",
+   "semester": "Năm học 2023 - 2024 / Học kỳ 1",
+   "source": "transcript",
+   "note": "226/BKDT- 17/01/2024"
+  },
+  {
+   "id": "amvhnho3p1906m9",
+   "code": "LA1003",
+   "name": "Anh văn 1",
+   "credits": 2,
+   "score": null,
+   "special": "MT",
+   "semester": "Năm học 2023 - 2024 / Học kỳ 1",
+   "source": "transcript",
+   "note": "226/BKDT- 17/01/2024"
+  },
+  {
+   "id": "amvhnho3p1a9o2w",
+   "code": "LA1009",
+   "name": "Anh văn 4",
+   "credits": 2,
+   "score": null,
+   "special": "MT",
+   "semester": "Năm học 2023 - 2024 / Học kỳ 1",
+   "source": "transcript",
+   "note": "TOEIC LR 670"
+  },
+  {
+   "id": "amvhnho3ptujf3",
+   "code": "MI1003",
+   "name": "Giáo dục Quốc phòng",
+   "credits": 0,
+   "score": null,
+   "special": "DT",
+   "semester": "Năm học 2023 - 2024 / Học kỳ 2",
+   "group": "A01",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3pu35h4",
+   "code": "CH1003",
+   "name": "Hóa đại cương",
+   "credits": 3,
+   "score": 6.6,
+   "officialLetter": "C+",
+   "semester": "Năm học 2023 - 2024 / Học kỳ 2",
+   "group": "L08",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3pvefjn",
+   "code": "EE1007",
+   "name": "Vật lý Bán dẫn",
+   "credits": 4,
+   "score": 6.5,
+   "officialLetter": "C+",
+   "semester": "Năm học 2023 - 2024 / Học kỳ 2",
+   "group": "L08",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3pw03qr",
+   "code": "MT1009",
+   "name": "Phương pháp tính",
+   "credits": 3,
+   "score": 5.5,
+   "officialLetter": "C",
+   "semester": "Năm học 2023 - 2024 / Học kỳ 2",
+   "group": "L10",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3px3aas",
+   "code": "LA1007",
+   "name": "Anh văn 3",
+   "credits": 2,
+   "score": null,
+   "special": "RT",
+   "semester": "Năm học 2023 - 2024 / Học kỳ 2",
+   "group": "L17",
+   "source": "transcript",
+   "note": "Không tính TCTL & TBTL",
+   "excluded": true
+  },
+  {
+   "id": "amvhnho3pyydpw",
+   "code": "PE1037",
+   "name": "Bóng bàn (Học phần 2)",
+   "credits": 0,
+   "score": 6.1,
+   "officialLetter": "C",
+   "semester": "Năm học 2023 - 2024 / Học kỳ 2",
+   "group": "L07",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3pzfrde",
+   "code": "MT1005",
+   "name": "Giải tích 2",
+   "credits": 4,
+   "score": 6,
+   "officialLetter": "C",
+   "semester": "Năm học 2023 - 2024 / Học kỳ 2",
+   "group": "L08",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3pnfzv2",
+   "code": "SP1007",
+   "name": "Pháp luật Việt Nam Đại cương",
+   "credits": 2,
+   "score": 8.4,
+   "officialLetter": "B+",
+   "semester": "Năm học 2024 - 2025 / Học kỳ 1",
+   "group": "L08",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3powaqs",
+   "code": "EE1009",
+   "name": "Kỹ thuật số",
+   "credits": 3,
+   "score": 5.2,
+   "officialLetter": "D+",
+   "semester": "Năm học 2024 - 2025 / Học kỳ 1",
+   "group": "L09",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3ppekdb",
+   "code": "EE2009",
+   "name": "Hệ thống Máy tính và Ngôn ngữ Lập trình",
+   "credits": 3,
+   "score": 6.2,
+   "officialLetter": "C",
+   "semester": "Năm học 2024 - 2025 / Học kỳ 1",
+   "group": "L02",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3pqbqdx",
+   "code": "IM1027",
+   "name": "Kinh tế Kỹ thuật",
+   "credits": 3,
+   "score": null,
+   "special": "RT",
+   "semester": "Năm học 2024 - 2025 / Học kỳ 1",
+   "group": "L01",
+   "source": "transcript",
+   "note": "Không tính TCTL & TBTL",
+   "excluded": true
+  },
+  {
+   "id": "amvhnho3prndo9",
+   "code": "EE2033",
+   "name": "Giải tích mạch",
+   "credits": 3,
+   "score": 8.2,
+   "officialLetter": "B+",
+   "semester": "Năm học 2024 - 2025 / Học kỳ 1",
+   "group": "L01",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3psfxfo",
+   "code": "MT2013",
+   "name": "Xác suất và Thống kê",
+   "credits": 4,
+   "score": 5.6,
+   "officialLetter": "C",
+   "semester": "Năm học 2024 - 2025 / Học kỳ 1",
+   "group": "L10",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3phybho",
+   "code": "EE2017",
+   "name": "Cơ sở Kỹ thuật điện",
+   "credits": 3,
+   "score": 6.5,
+   "officialLetter": "C+",
+   "semester": "Năm học 2024 - 2025 / Học kỳ 2",
+   "group": "L01",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3piwuu1",
+   "code": "EE2005",
+   "name": "Tín hiệu và Hệ thống",
+   "credits": 3,
+   "score": 6.4,
+   "officialLetter": "C",
+   "semester": "Năm học 2024 - 2025 / Học kỳ 2",
+   "group": "L08",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3pj965r",
+   "code": "EE2035",
+   "name": "Mạch điện tử",
+   "credits": 3,
+   "score": 8.5,
+   "officialLetter": "A",
+   "semester": "Năm học 2024 - 2025 / Học kỳ 2",
+   "group": "L12",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3pka742",
+   "code": "SP1031",
+   "name": "Triết học Mác - Lênin",
+   "credits": 3,
+   "score": 5.9,
+   "officialLetter": "C",
+   "semester": "Năm học 2024 - 2025 / Học kỳ 2",
+   "group": "L11",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3plwsk8",
+   "code": "EE2039",
+   "name": "Vi xử lý",
+   "credits": 3,
+   "score": 8.7,
+   "officialLetter": "A",
+   "semester": "Năm học 2024 - 2025 / Học kỳ 2",
+   "group": "L15",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3pm3jmh",
+   "code": "IM1023",
+   "name": "Quản lý Sản xuất cho Kỹ sư",
+   "credits": 3,
+   "score": 6.7,
+   "officialLetter": "C+",
+   "semester": "Năm học 2024 - 2025 / Học kỳ 2",
+   "group": "L04",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3pf7jzr",
+   "code": "MT1003",
+   "name": "Giải tích 1",
+   "credits": 4,
+   "score": 8.4,
+   "officialLetter": "B+",
+   "semester": "Năm học 2024 - 2025 / Học kỳ 3",
+   "group": "DL06",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3pg0jcx",
+   "code": "EE2021",
+   "name": "Cơ sở Điện tử Công suất",
+   "credits": 3,
+   "score": 8.1,
+   "officialLetter": "B+",
+   "semester": "Năm học 2024 - 2025 / Học kỳ 3",
+   "group": "DT01",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3p8xbfh",
+   "code": "SP1033",
+   "name": "Kinh tế Chính trị Mác - Lênin",
+   "credits": 2,
+   "score": 9.5,
+   "officialLetter": "A+",
+   "semester": "Năm học 2025 - 2026 / Học kỳ 1",
+   "group": "L06",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3p923ln",
+   "code": "EE3071",
+   "name": "SCADA",
+   "credits": 3,
+   "score": 9.5,
+   "officialLetter": "A+",
+   "semester": "Năm học 2025 - 2026 / Học kỳ 1",
+   "group": "L02",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3pavrag",
+   "code": "EE3029",
+   "name": "Thiết bị và Hệ thống Tự động",
+   "credits": 3,
+   "score": 8.8,
+   "officialLetter": "A",
+   "semester": "Năm học 2025 - 2026 / Học kỳ 1",
+   "group": "L02",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3pb2xop",
+   "code": "EE2023",
+   "name": "Thực tập Điện tử 1",
+   "credits": 1,
+   "score": 5.4,
+   "officialLetter": "D+",
+   "semester": "Năm học 2025 - 2026 / Học kỳ 1",
+   "group": "L13",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3pcz9pj",
+   "code": "EE2019",
+   "name": "Cơ sở Điều khiển Tự động",
+   "credits": 3,
+   "score": 7.5,
+   "officialLetter": "B",
+   "semester": "Năm học 2025 - 2026 / Học kỳ 1",
+   "group": "L03",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3pdll0q",
+   "code": "EN1003",
+   "name": "Con người và Môi trường",
+   "credits": 3,
+   "score": 8.2,
+   "officialLetter": "B+",
+   "semester": "Năm học 2025 - 2026 / Học kỳ 1",
+   "group": "L02",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3pex652",
+   "code": "EE2025",
+   "name": "Thực tập Điện 1",
+   "credits": 1,
+   "score": 6.5,
+   "officialLetter": "C+",
+   "semester": "Năm học 2025 - 2026 / Học kỳ 1",
+   "group": "L10",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3o00wpi",
+   "code": "EE3017",
+   "name": "Đo lường và Điều khiển bằng Máy tính",
+   "credits": 3,
+   "score": 8.7,
+   "officialLetter": "A",
+   "semester": "Năm học 2025 - 2026 / Học kỳ 2",
+   "group": "L04",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3o1rs4j",
+   "code": "SP1035",
+   "name": "Chủ nghĩa Xã hội Khoa học",
+   "credits": 2,
+   "score": 6.6,
+   "officialLetter": "C+",
+   "semester": "Năm học 2025 - 2026 / Học kỳ 2",
+   "group": "L04",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3o2jpsm",
+   "code": "EE3023",
+   "name": "Thực tập Điện 2",
+   "credits": 1,
+   "score": 6,
+   "officialLetter": "C",
+   "semester": "Năm học 2025 - 2026 / Học kỳ 2",
+   "group": "L03",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3o3edgs",
+   "code": "EE3355",
+   "name": "Thực tập Ngoài trường",
+   "credits": 2,
+   "score": 6,
+   "officialLetter": "C",
+   "semester": "Năm học 2025 - 2026 / Học kỳ 2",
+   "group": "L33",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3o401tb",
+   "code": "EE3007",
+   "name": "Lý Thuyết Điều khiển Nâng cao",
+   "credits": 3,
+   "score": 9.4,
+   "officialLetter": "A",
+   "semester": "Năm học 2025 - 2026 / Học kỳ 2",
+   "group": "L01",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3o5caby",
+   "code": "EE3185",
+   "name": "Đồ án 1 (Kỹ thuật Điều khiển và Tự động hóa)",
+   "credits": 1,
+   "score": 6.4,
+   "officialLetter": "C",
+   "semester": "Năm học 2025 - 2026 / Học kỳ 2",
+   "group": "L04",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3o665l0",
+   "code": "EE3005",
+   "name": "Đo lường Công nghiệp",
+   "credits": 3,
+   "score": 8.6,
+   "officialLetter": "A",
+   "semester": "Năm học 2025 - 2026 / Học kỳ 2",
+   "group": "L04",
+   "source": "transcript"
+  },
+  {
+   "id": "amvhnho3o7p5tz",
+   "code": "EE3069",
+   "name": "PLC",
+   "credits": 3,
+   "score": 6,
+   "officialLetter": "C",
+   "semester": "Năm học 2025 - 2026 / Học kỳ 2",
+   "group": "L02",
+   "source": "transcript"
+  }
+ ],
+ "official": {
+  "semesters": [
+   {
+    "semester": "Năm học 2023 - 2024 / Học kỳ 1",
+    "cumGpa": 2.9,
+    "cumCredits": 23,
+    "semGpa": 2.9,
+    "semCredits": 17
+   },
+   {
+    "semester": "Năm học 2023 - 2024 / Học kỳ 2",
+    "cumGpa": 2.6,
+    "cumCredits": 37,
+    "semGpa": 2.3,
+    "semCredits": 14
+   },
+   {
+    "semester": "Năm học 2024 - 2025 / Học kỳ 1",
+    "cumGpa": 2.6,
+    "cumCredits": 52,
+    "semGpa": 2.4,
+    "semCredits": 15
+   },
+   {
+    "semester": "Năm học 2024 - 2025 / Học kỳ 2",
+    "cumGpa": 2.6,
+    "cumCredits": 70,
+    "semGpa": 2.8,
+    "semCredits": 18
+   },
+   {
+    "semester": "Năm học 2024 - 2025 / Học kỳ 3",
+    "cumGpa": 2.8,
+    "cumCredits": 73,
+    "semGpa": 3.5,
+    "semCredits": 7
+   },
+   {
+    "semester": "Năm học 2025 - 2026 / Học kỳ 1",
+    "cumGpa": 2.9,
+    "cumCredits": 89,
+    "semGpa": 3.5,
+    "semCredits": 16
+   },
+   {
+    "semester": "Năm học 2025 - 2026 / Học kỳ 2",
+    "cumGpa": 2.9,
+    "cumCredits": 107,
+    "semGpa": 3.1,
+    "semCredits": 18
+   }
+  ],
+  "gpa4": 2.9,
+  "credits": 107
+ }
+}

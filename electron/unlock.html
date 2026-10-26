@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="UTF-8" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'" />
+<title>Mã bảo trì</title>
+<style>body{font:14px system-ui,sans-serif;margin:16px}input,button{font:inherit;padding:6px 8px;width:100%;box-sizing:border-box;margin-top:8px}#m{color:#b00020;min-height:1.2em;margin-top:8px}</style></head>
+<body><label>Nhập mã bảo trì<input id="c" type="password" autofocus /></label><button id="b">Mở khóa</button><div id="m"></div>
+<script>
+const c = document.getElementById('c'), m = document.getElementById('m');
+async function go() {
+  const r = await window.unlockApi.submit(c.value); c.value = '';
+  if (r.ok) return;
+  m.textContent = r.locked ? 'Đã khóa tạm, thử lại sau ' + Math.ceil(r.remainingMs / 1000) + ' giây.' : 'Sai mã. Còn ' + r.triesLeft + ' lần thử.';
+}
+document.getElementById('b').onclick = go;
+c.addEventListener('keydown', (e) => { if (e.key === 'Enter') go(); });
+</script></body></html>

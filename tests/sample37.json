@@ -1,0 +1,261 @@
+[
+ {
+  "id": "s2",
+  "name": "Giải tích 1",
+  "credits": 4,
+  "score": 8.4,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s3",
+  "name": "Nhập môn kĩ thuật",
+  "credits": 3,
+  "score": 9.2,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s4",
+  "name": "Vật lí 1",
+  "credits": 4,
+  "score": 6.5,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s5",
+  "name": "Thí nghiệm vật lí",
+  "credits": 1,
+  "score": 6,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s6",
+  "name": "Đại số tuyến tính",
+  "credits": 3,
+  "score": 7.8,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s7",
+  "name": "Giải tích 2",
+  "credits": 4,
+  "score": 7.6,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s8",
+  "name": "Hoá đại cương",
+  "credits": 3,
+  "score": 6.6,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s9",
+  "name": "Phương pháp tính",
+  "credits": 3,
+  "score": 5.6,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s10",
+  "name": "Vật lí bán dẫn",
+  "credits": 4,
+  "score": 5.7,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s11",
+  "name": "Pháp luật Việt Nam đại cương",
+  "credits": 2,
+  "score": 8,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s12",
+  "name": "Triết học Mác Lênin",
+  "credits": 3,
+  "score": 7.8,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s13",
+  "name": "Giải tích mạch",
+  "credits": 3,
+  "score": 6.4,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s14",
+  "name": "Ngôn ngữ lập trình",
+  "credits": 3,
+  "score": 7,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s15",
+  "name": "Xác suất thống kê",
+  "credits": 4,
+  "score": 6.8,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s16",
+  "name": "Kĩ thuật số",
+  "credits": 3,
+  "score": 4.4,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s17",
+  "name": "Tín hiệu và hệ thống",
+  "credits": 3,
+  "score": 7.2,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s18",
+  "name": "Vi xử lý",
+  "credits": 3,
+  "score": 7.5,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s19",
+  "name": "Mạch điện tử",
+  "credits": 3,
+  "score": 7.4,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s20",
+  "name": "Cơ sở kỹ thuật điện",
+  "credits": 3,
+  "score": 7.2,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s21",
+  "name": "Quản lý sx",
+  "credits": 3,
+  "score": 8.4,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s22",
+  "name": "Cơ sở điện tử công suất",
+  "credits": 3,
+  "score": 6.2,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s23",
+  "name": "Cơ sở điều khiển tự động",
+  "credits": 3,
+  "score": 7.7,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s24",
+  "name": "Thiết bị và hệ thống tự động",
+  "credits": 3,
+  "score": 8,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s25",
+  "name": "Thực tập điện 1",
+  "credits": 1,
+  "score": 8,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s26",
+  "name": "Thực tập điện tử 1",
+  "credits": 1,
+  "score": 8,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s27",
+  "name": "Kinh tế chính trị Mác - Lênin",
+  "credits": 2,
+  "score": 9.5,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s28",
+  "name": "SCADA",
+  "credits": 3,
+  "score": 9.5,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s29",
+  "name": "Con người môi trường",
+  "credits": 3,
+  "score": 8.5,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s30",
+  "name": "Anh văn 2",
+  "credits": 2,
+  "score": 6.5,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s31",
+  "name": "Đo lường và điều khiển bằng máy tính",
+  "credits": 3,
+  "score": 7.9,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s32",
+  "name": "Đo lường công nghiệp",
+  "credits": 3,
+  "score": 8.7,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s33",
+  "name": "Lý thuyết điều khiển nâng cao",
+  "credits": 3,
+  "score": 9.4,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s34",
+  "name": "Thực tập điện 2",
+  "credits": 1,
+  "score": 8,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s35",
+  "name": "Chủ nghĩa xã hội khoa học",
+  "credits": 2,
+  "score": 8.1,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s36",
+  "name": "Thực tập ngoài trường",
+  "credits": 2,
+  "score": 10,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s37",
+  "name": "Đồ án 1",
+  "credits": 1,
+  "score": 10,
+  "semester": "Dữ liệu mẫu"
+ },
+ {
+  "id": "s38",
+  "name": "PLC",
+  "credits": 3,
+  "score": 7.8,
+  "semester": "Dữ liệu mẫu"
+ }
+]
