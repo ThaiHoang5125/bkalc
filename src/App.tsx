@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { Goals } from './components/Goals';
 import { Guide } from './components/Guide';
 import { Dashboard } from './components/Dashboard';
+import type { DashView } from './components/Dashboard';
 import { DataPage } from './components/DataPage';
 import { SemPlan } from './components/SemPlan';
 import { Timetable } from './components/Timetable';
@@ -25,7 +26,7 @@ const pad2 = (n: number) => String(n).padStart(2, '0');
 const clock = (ts: number) => { const d = new Date(ts); return `${pad2(d.getHours())}:${pad2(d.getMinutes())}`; };
 
 export type Page = 'overview' | 'transcript' | 'goals' | 'semplan' | 'timetable' | 'guide' | 'data';
-/** Chuyển trang, kèm (nếu cần) chế độ xem con của trang đó: bảng điểm 'sem' | 'group', mục tiêu 'target' | 'courses', xếp lịch '1' | '2' | '3', dữ liệu 'data' | 'settings'. */
+/** Chuyển trang, kèm (nếu cần) chế độ xem con của trang đó: tổng quan 'summary' | 'charts' | 'tools', bảng điểm 'sem' | 'group', mục tiêu 'target' | 'courses', xếp lịch '1' | '2' | '3', dữ liệu 'data' | 'settings'. */
 export type Go = (page: Page, sub?: string) => void;
 
 const Ico = ({ children }: { children: ReactNode }) => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{children}</svg>;
@@ -137,7 +138,7 @@ export function App({ initial }: { initial: AppData }) {
             </div>
           </nav>
           <main>
-            {page === 'overview' && <Dashboard data={data} go={go} />}
+            {page === 'overview' && <Dashboard data={data} go={go} view={view('overview', 'summary') as DashView} setView={setSub('overview')} />}
             {page === 'transcript' && <Transcript jump={jump} data={data} view={view('transcript', 'sem') as 'sem' | 'group'} setView={setSub('transcript')} go={go} onAdd={store.addAttempts} onUpdate={store.updateAttempt} onRemove={store.removeAttempt} onFreeCourse={store.setFreeCourse} />}
             {page === 'goals' && <Goals data={data} view={view('goals', 'target') as 'target' | 'courses'} setView={setSub('goals')} onSettings={store.updateSettings} onAdd={store.addAttempts} onUpdate={store.updateAttempt} onRemove={store.removeAttempt} />}
             {page === 'semplan' && <SemPlan data={data} onPlan={store.updatePlan} go={go} />}

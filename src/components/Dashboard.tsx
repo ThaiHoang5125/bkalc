@@ -119,7 +119,9 @@ function courseLine(a: Attempt): { line: string; pct: number } {
 
 interface Row { id: string; n: number; err?: boolean; text: string; small?: string; link?: [string, () => void]; extra?: [string, () => void] }
 
-export function Dashboard({ data, go }: { data: AppData; go: Go }) {
+export type DashView = 'summary' | 'charts' | 'tools';
+
+export function Dashboard({ data, go, view, setView }: { data: AppData; go: Go; view: DashView; setView: (v: DashView) => void }) {
   const { attempts, settings } = data;
   const [, bump] = useState(0);
   const s = useMemo(() => summarize(attempts, settings.retakePolicy), [attempts, settings.retakePolicy]);
@@ -177,7 +179,11 @@ export function Dashboard({ data, go }: { data: AppData; go: Go }) {
   return (
     <div className="page">
       <ProfileBanner st={st} gpa={s.gpa} earned={earned} total={total} classification={s.classification} dc={dc} action={<button onClick={() => go('data', 'data')}>{t('Nhập bảng điểm')}</button>} />
-      <section className="kpis" aria-label={t('Chỉ số chính')}>
+      <div className="seg" role="group" aria-label={t('Chế độ xem')}>
+        {([['summary', t('Tóm tắt')], ['charts', t('Biểu đồ')], ['tools', t('Công cụ')]] as [DashView, string][]).map(([k, l]) => <button key={k} aria-pressed={view === k} onClick={() => setView(k)}>{l}</button>)}
+      </div>
+
+      {view === 'summary' && <section className="kpis" aria-label={t('Chỉ số chính')}>
         <div className="card stat kpi"><span className="k">{t('Đang học')}</span><span className="v">{ongoing.reduce((a, o) => a + o.credits, 0)}<small> {t('tín chỉ')}</small></span><span className="sub">{t('{n} môn', { n: ongoing.length })}{ongoing.length > 0 && ` · ${semesterShort(nowSem)}`}</span></div>
         {improve.length > 0 && (
           <div className="card stat kpi">
@@ -192,9 +198,9 @@ export function Dashboard({ data, go }: { data: AppData; go: Go }) {
             </div>
           </div>)}
         <div className="card stat kpi goal"><span className="k">{t('Mục tiêu: {c} ({g})', { c: t(classify(settings.targetGpa)), g: fmt(settings.targetGpa) })}</span><span className="v">{goalVal}</span><span className="sub">{goalSub}</span></div>
-      </section>
+      </section>}
 
-      {rows.length > 0 && (
+      {view === 'summary' && rows.length > 0 && (
         <section className="attn" aria-label={t('Cần chú ý')}>
           <b>{t('Cần chú ý ({n})', { n: count })}</b>
           {rows.map((r) => (
@@ -206,8 +212,8 @@ export function Dashboard({ data, go }: { data: AppData; go: Go }) {
         </section>
       )}
 
-      <div className="cols">
-        <section className="card grow3 colstack" aria-label={t('Học kỳ này')}>
+      {view === 'summary' && (
+        <section className="card colstack" aria-label={t('Học kỳ này')}>
           <div className="head-row"><h3 className="m0">{t('Học kỳ này')} · {semesterShort(nowSem)}</h3><button className="linkbtn small" onClick={() => go('goals', 'courses')}>{t('Tính điểm →')}</button></div>
           {ongoing.length === 0 ? <p className="muted">{t('Chưa có môn đang học.')}</p> : (
             <div className="curgrid">
@@ -222,7 +228,10 @@ export function Dashboard({ data, go }: { data: AppData; go: Go }) {
               })}
             </div>)}
         </section>
-        <section className="card grow2" aria-label={t('GPA theo học kỳ')}>
+      )}
+
+      {view === 'charts' && (<div className="cols">
+        <section className="card grow3" aria-label={t('GPA theo học kỳ')}>
           <div className="head-row mb"><h3 className="m0">{t('GPA theo học kỳ')}</h3><span className="small muted">{t('thang 4')}</span></div>
           {series.length === 0 ? <p className="muted">{t('Chưa có dữ liệu để vẽ biểu đồ.')}</p> : (
             <div className="hbars" role="img" aria-label={t('GPA theo học kỳ')}>
@@ -234,13 +243,6 @@ export function Dashboard({ data, go }: { data: AppData; go: Go }) {
                 </div>))}
             </div>)}
         </section>
-      </div>
-
-      <div className="cols">
-        <div className="grow3 colstack">
-          <QuickCalc gpa={s.gpa} credits={s.countedCredits} points={s.qualityPoints} target={settings.targetGpa} />
-          <OfficialCheck data={data} />
-        </div>
         <div className="card grow2">
           <CardTitle>{t('Phân bố điểm chữ (theo tín chỉ)')}</CardTitle>
           <div className="dist">
@@ -252,7 +254,14 @@ export function Dashboard({ data, go }: { data: AppData; go: Go }) {
               </div>))}
           </div>
         </div>
-      </div>
+      </div>)}
+
+      {view === 'tools' && (
+        <div className="colstack">
+          <QuickCalc gpa={s.gpa} credits={s.countedCredits} points={s.qualityPoints} target={settings.targetGpa} />
+          <OfficialCheck data={data} />
+        </div>
+      )}
     </div>
   );
 }

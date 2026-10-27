@@ -115,11 +115,13 @@ async function main() {
     await nav('Dữ liệu & cài đặt');
     await snap('start-1', [{ sel: '.navitem', t: 'Dữ liệu & cài đặt', pad: 2 }, { sel: 'button', t: 'Chọn file PDF…', i: 0, n: 2 }], { full: true });
 
-    // Tổng quan
+    // Tổng quan (3 tab: Tóm tắt / Biểu đồ / Công cụ)
     await nav('Tổng quan');
-    await snap('overview-1', [{ r: [340, 233, 560, 100] }, { r: [308, 489, 275, 178] }, { r: [600, 489, 275, 178] }, { r: [891, 489, 276, 178] }], { clip: { x: 300, y: 0, width: 880, height: 700 } });
-    await scrollTo({ t: 'GPA theo học kỳ', sel: 'h3' });
-    await snap('overview-2', [{ t: 'Học kỳ này', sel: 'h3', up: 2 }, { t: 'GPA theo học kỳ', sel: 'h3', up: 2 }]);
+    const rects = await e(`[...document.querySelectorAll('.kpis .kpi')].map((k) => { const r = k.getBoundingClientRect(); return [r.left, r.top, r.width, r.height]; })`);
+    const tabs = await e(`(() => { const r = document.querySelector('.seg').getBoundingClientRect(); return [r.left, r.top, r.width, r.height]; })()`);
+    await snap('overview-1', [{ r: [340, 233, 560, 100] }, { r: tabs, pad: 3 }, ...rects.map((r) => ({ r }))], { clip: { x: 300, y: 0, width: 880, height: 740 } });
+    await click({ sel: '.seg button', t: 'Biểu đồ' });
+    await snap('overview-2', [{ sel: '.seg button', t: 'Biểu đồ', pad: 3 }, { t: 'GPA theo học kỳ', sel: 'h3', up: 2 }, { t: 'Phân bố điểm chữ', sel: 'h3', up: 2 }], { clip: { x: 300, y: 440, width: 880, height: 360 } });
 
     // Bảng điểm
     await nav('Bảng điểm');

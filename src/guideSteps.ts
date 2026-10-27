@@ -42,11 +42,11 @@ export const STEPS: GuideStep[] = [
     lines: [
       'Khối đầu trang: GPA tích lũy, tín chỉ tích lũy, học lực và xếp loại cuối cùng; bên dưới là môn đang học, môn nên cải thiện và mục tiêu GPA.',
       '**Cần chú ý**: gom các cảnh báo như kế hoạch vượt trần tín chỉ, cảnh báo chuẩn đăng ký, lịch học trùng giờ, nhắc sao lưu (sau 30 ngày). Khung này ẩn khi không có gì cần chú ý.',
-      'Biểu đồ GPA từng học kỳ và thẻ “Học kỳ này”.',
+      'Ba tab dưới hồ sơ: **Tóm tắt** (thẻ chỉ số, Cần chú ý, Học kỳ này), **Biểu đồ** (GPA từng học kỳ, phân bố điểm chữ) và **Công cụ** (tính nhanh GPA, đối chiếu với trường).',
     ],
     shots: [
-      { src: 'overview-1.png', cap: '① GPA, tín chỉ, học lực ② môn đang học ③ môn nên cải thiện ④ mục tiêu GPA' },
-      { src: 'overview-2.png', cap: '① Thẻ “Học kỳ này” ② GPA từng học kỳ (kéo xuống để xem)' },
+      { src: 'overview-1.png', cap: '① GPA, tín chỉ, học lực ② ba tab: Tóm tắt, Biểu đồ, Công cụ ③ môn đang học ④ môn nên cải thiện ⑤ mục tiêu GPA' },
+      { src: 'overview-2.png', cap: '① Tab “Biểu đồ” ② GPA từng học kỳ ③ phân bố điểm chữ' },
     ],
   },
   {
