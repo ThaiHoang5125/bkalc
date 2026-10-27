@@ -19,7 +19,11 @@
   --goal-bg: #1E3A6E; --goal-ink: #FFFFFF; --goal-sub: #C9D5EA;
   --toast-bg: #1A2233; --toast-ink: #FFFFFF; --toast-link: #9DB8E8;
   --shadow-sm: 0 1px 2px rgba(16, 24, 40, .08); --shadow-pop: 0 8px 24px rgba(16, 24, 40, .16);
+  --shadow-md: 0 4px 14px rgba(16, 24, 40, .12);
   --overlay: rgba(16, 24, 40, .5);
+  /* chuyển động: vào dùng ease-out, ra dùng ease-in; fast cho hover/màu, dur cho hộp thoại/toast */
+  --ease-out: cubic-bezier(.2, .7, .2, 1); --ease-in: cubic-bezier(.4, 0, 1, 1);
+  --dur-fast: 120ms; --dur: 200ms;
   color-scheme: light;
 }
 :root[data-theme="dark"] {
@@ -34,6 +38,7 @@
   --goal-bg: #1E3A6E; --goal-ink: #FFFFFF; --goal-sub: #C9D5EA;
   --toast-bg: #E6EAF0; --toast-ink: #0F141C; --toast-link: #1E3A6E;
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, .4); --shadow-pop: 0 8px 24px rgba(0, 0, 0, .5);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, .42);
   --overlay: rgba(0, 0, 0, .6);
   color-scheme: dark;
 }
@@ -655,3 +660,26 @@ button.accent { border-color: var(--accent); color: var(--accent-text); font-wei
 .credit b { color: var(--ink); font-weight: 600; }
 .credit:hover, .credit:focus-visible { color: var(--accent-text); border-color: var(--accent); }
 @media print { .credit { display: none; } }
+
+/* ===== Chuyển động (nhẹ, tự tắt khi hệ điều hành bật giảm chuyển động) ===== */
+.pop, .menupop, .sugg { box-shadow: var(--shadow-md); }
+button, .navitem, .chip, .quicklist button, .sidesum, input, select, textarea, .searchbox, .credit {
+  transition: background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
+}
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes rise-in { from { opacity: 0; transform: translateY(8px) scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes drop-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+.modal { animation: fade-in var(--dur) var(--ease-out); }
+.modalbox { animation: rise-in var(--dur) var(--ease-out); }
+.toast { animation: rise-in var(--dur) var(--ease-out); }
+.pop, .menupop, .sugg { animation: drop-in var(--dur-fast) var(--ease-out); }
+.menupop.up { animation-name: fade-in; }
+main > .page { animation: fade-in 150ms var(--ease-out); }
+/* thanh bên thu gọn/mở rộng: nhãn ẩn ngay, chỉ chiều rộng chạy mượt (không dùng khi thanh bên thành hàng ngang) */
+@media (min-width: 601px) {
+  .side { transition: width var(--dur) var(--ease-out), padding var(--dur) var(--ease-out); overflow-x: hidden; }
+  .navlabel, .brandtxt b { white-space: nowrap; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
