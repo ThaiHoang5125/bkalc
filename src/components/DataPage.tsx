@@ -11,6 +11,7 @@ import { emptyData, sanitize } from '../store';
 import { ocrAvailable, readImages } from '../ocr/read';
 import { t, LANGS, setLang, useLang } from '../i18n';
 import { CardTitle, Menu, PageHeader, useToast } from './ui';
+import { CurriculumImport } from './CurriculumImport';
 import { setTheme, useTheme } from '../theme';
 import type { ThemePref } from '../theme';
 import { writeBackup } from '../backup';
@@ -233,6 +234,7 @@ export function DataPage({ data, view, setView, guide, onAdd, onSettings, onRepl
           </div>
         </div>
 
+        <CurriculumImport data={data} onReplace={onReplace} />
         <div className="card">
           <CardTitle hint={<ul>
             <li><b>{t('Riêng tư')}:</b> {t('nhận dạng chữ ngay trong app, không cần Internet, không gửi đi đâu.')}</li>

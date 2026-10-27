@@ -116,6 +116,8 @@ export interface AppData {
   standards?: import('./standards').StandardsData;
   /** Khóa (mã môn) các môn ngoài chương trình đào tạo mà sinh viên chọn tính vào nhóm Tự chọn tự do */
   freeCourses?: string[];
+  /** Chương trình đào tạo người dùng nhập thêm (ngành/khoa ngoài kho có sẵn) */
+  customPrograms?: import('../data/curriculum').CustomProgram[];
 }
 
 export interface Classification {

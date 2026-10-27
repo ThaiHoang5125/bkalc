@@ -19,7 +19,7 @@ export interface Lookup {
 }
 
 /** Gộp 4 nguồn theo thứ tự ưu tiên: chương trình đào tạo trong form Tiến độ > bảng điểm đã nhập > danh mục có sẵn (CTĐT Khoa Điện - Điện tử khóa 2023, 2024, 2026) > danh sách tất cả các môn của trường (chỉ bổ sung môn còn thiếu, tên viết tắt). */
-export function buildLookup(data?: Pick<AppData, 'program' | 'attempts'>): Lookup {
+export function buildLookup(data?: Pick<AppData, 'program' | 'attempts' | 'customPrograms'>): Lookup {
   const map = new Map<string, Entry>();
   const put = (e: Entry) => { const k = e.code.toUpperCase(); if (!map.has(k)) map.set(k, { ...e, code: k }); };
   for (const g of data?.program?.groups ?? []) for (const c of g.courses) put({ code: c.code, name: c.name, credits: c.credits, origin: 'program' });
@@ -29,6 +29,7 @@ export function buildLookup(data?: Pick<AppData, 'program' | 'attempts'>): Looku
     const ex = map.get(k);
     if (ex) { if (!ex.en) ex.en = c.e; } else put({ code, name: c.n, en: c.e, credits: c.c, origin: 'catalog' });
   }
+  for (const p of data?.customPrograms ?? []) for (const [code, c] of Object.entries(p.names)) put({ code, name: c.n, en: c.e, credits: c.c, origin: 'catalog' });
   for (const [code, [name, credits]] of Object.entries(ALL_COURSES)) put({ code, name, credits, origin: 'catalog', abbr: true });
   const entries = [...map.values()].sort((a, b) => a.code.localeCompare(b.code));
   const byName = new Map<string, Entry>();

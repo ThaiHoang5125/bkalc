@@ -3,6 +3,7 @@ import type { AppData, Attempt, Component, Official, Program, Settings, SpecialC
 import type { PlanData, Prefs, Section, Slot, StandardsData, TimetableData } from './engine';
 import { DEFAULT_PLAN, MAX_PERIOD, canonSemester, isSpecialCode, newId, programTotal, semesterAt, semesterLabel } from './engine';
 import type { ProgressResult, TranscriptResult } from './pdf';
+import { sanitizeCustomPrograms } from './data/curriculum';
 
 export const DEFAULT_SETTINGS: Settings = { totalCredits: 132, targetGpa: 3.2, retakePolicy: 'highest' };
 
@@ -91,6 +92,8 @@ export function sanitize(raw: unknown): AppData {
   }
   const p = o.program as { groups?: unknown } | undefined;
   if (p && Array.isArray(p.groups) && p.groups.length) d.program = p as Program;
+  const cps = sanitizeCustomPrograms(o.customPrograms);
+  if (cps.length) d.customPrograms = cps;
   if (Array.isArray(o.freeCourses)) d.freeCourses = [...new Set(o.freeCourses.filter((x): x is string => typeof x === 'string' && x !== ''))];
   return d;
 }

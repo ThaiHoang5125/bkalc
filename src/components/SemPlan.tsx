@@ -3,7 +3,9 @@ import type { AppData } from '../engine';
 import { MAX_YEARS, STANDARD_YEARS, autoPlan, bandOf, capOf, computeProgress, fillPlaceholders, isInternship, isPlaceholder, PLACEHOLDER_NAME, graduationSemester, isSummer, isUndeclared, semesterDisplay, semesterShort, summarize, unmet, withPolitical, isCertCode, planInfo, planWarnings, needCredits, TTNT_PCT } from '../engine';
 import type { ElectiveNeed, PlanCourse, PlanData, PlanItem } from '../engine';
 import { canonSemester } from '../engine';
-import { COURSE_DB, PROGRAMS } from '../data/programs';
+import { PROGRAMS } from '../data/programs';
+import { courseDbFor } from '../data/curriculum';
+import type { CourseName } from '../data/curriculum';
 import { TEACHING_PLAN } from '../data/teachingPlan';
 import { guessProgram } from './LookupCard';
 import { fmt } from '../format';
@@ -24,9 +26,9 @@ const KIND_NOTE: Record<string, string> = {
   SHT: 'song hành hoặc học trước',
 };
 /** "EE3065 (SH)" → "EE3065 · song hành: học cùng kỳ hoặc đã học trước" */
-const condText = (s: string) => {
+const condText = (s: string, db: Record<string, CourseName>) => {
   const m = s.match(/^(\S+) \((\w+)\)$/);
-  const nm = m ? COURSE_DB[m[1]]?.n : undefined;
+  const nm = m ? db[m[1]]?.n : undefined;
   return m ? `${m[1]}${nm ? ' ' + nm : ''} · ${t(KIND_NOTE[m[2]] ?? m[2])}` : s;
 };
 
@@ -46,11 +48,15 @@ export function SemPlan({ data, onPlan, go }: { data: AppData; onPlan: (fn: (p: 
   const { plan, cohort, labels, curIdx, firstFuture, passed, enrolled, earnedNow, enrolledCredits, total, credOf } = info;
   const guess = useMemo(() => guessProgram(data.student), [data.student]);
   const [major, setMajor] = useState(guess.major);
+  const custom = data.customPrograms;
+  const customProg = major.startsWith('c:') ? custom?.find((p) => `c:${p.id}` === major) : undefined;
+  const majorKey = major.startsWith('c:') && !customProg ? guess.major : major; // chương trình tự nhập đã bị xóa
   const progYear = baseYear(cohort ?? guess.year);
   const undeclared = isUndeclared(data.official);
   const useForm = !!data.program && !undeclared;
 
-  const prog = PROGRAMS.find((p) => p.year === progYear && p.major === major);
+  const prog = customProg ?? PROGRAMS.find((p) => p.year === progYear && p.major === majorKey);
+  const db = useMemo(() => courseDbFor(prog, custom), [prog, custom]);
   const catalogCond = (code: string) => withPolitical(code, prog?.courses.find((c) => c[0] === code)?.[2] ?? '');
 
   const formProg = useMemo(() => (useForm && data.program ? computeProgress(data.program, data.attempts, data.settings.retakePolicy, data.freeCourses) : null), [useForm, data.program, data.attempts, data.settings.retakePolicy, data.freeCourses]);
@@ -62,7 +68,7 @@ export function SemPlan({ data, onPlan, go }: { data: AppData; onPlan: (fn: (p: 
       for (const [code, gi, cond] of prog.courses) {
         if (passed.has(code)) continue;
         const g = prog.groups[gi];
-        out.push({ code, name: COURSE_DB[code]?.n ?? code, credits: COURSE_DB[code]?.c ?? 0, cond, required: g?.kind === 'bb', group: g?.t });
+        out.push({ code, name: db[code]?.n ?? code, credits: db[code]?.c ?? 0, cond, required: g?.kind === 'bb', group: g?.t });
       }
     }
     const seen = new Set<string>();
@@ -117,7 +123,7 @@ export function SemPlan({ data, onPlan, go }: { data: AppData; onPlan: (fn: (p: 
       prog.groups.forEach((g, gi) => {
         if (g.kind !== 'tc' || !g.req || (g.unit && g.unit !== 'tc')) return;
         const mine = prog.courses.filter((c) => c[1] === gi).map((c) => c[0]);
-        const done = mine.filter((c) => passed.has(c) || enrolled.has(c) || plannedCodes.has(c)).reduce((a, c) => a + (COURSE_DB[c]?.c ?? 0), 0);
+        const done = mine.filter((c) => passed.has(c) || enrolled.has(c) || plannedCodes.has(c)).reduce((a, c) => a + (db[c]?.c ?? 0), 0);
         if (g.req - done > 0) out.push({ name: g.t, credits: g.req - done });
       });
     }
@@ -136,12 +142,12 @@ export function SemPlan({ data, onPlan, go }: { data: AppData; onPlan: (fn: (p: 
     if (!q) return;
     const fold = (x: string) => x.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/gi, 'd').toLowerCase();
     let c = (q.match(/^[A-Za-z]{2}\d{4}[A-Za-z]?/)?.[0] ?? '').toUpperCase();
-    if (!c || !COURSE_DB[c]) {
-      const hits = Object.entries(COURSE_DB).filter(([k, v]) => fold(v.n).includes(fold(q)) || k.includes(q.toUpperCase()));
+    if (!c || !db[c]) {
+      const hits = Object.entries(db).filter(([k, v]) => fold(v.n).includes(fold(q)) || k.includes(q.toUpperCase()));
       if (hits.length === 1) c = hits[0][0];
       else { setExtraErr(hits.length ? t('Có {n} môn khớp “{q}”, hãy chọn một môn trong danh sách gợi ý.', { n: hits.length, q }) : t('Không tìm thấy môn “{q}” trong danh mục.', { q })); return; }
     }
-    const info = COURSE_DB[c];
+    const info = db[c];
     setExtraErr('');
     add(l, { code: c, name: info.n, credits: info.c, cond: catalogCond(c), required: false });
     setExtra({ ...extra, [l]: '' });
@@ -149,7 +155,7 @@ export function SemPlan({ data, onPlan, go }: { data: AppData; onPlan: (fn: (p: 
 
   // Trình tự theo chương trình đào tạo: học kỳ chính thứ k của chương trình = k-th học kỳ không phải hè kể từ HK đầu của khóa
   const progTerm = (i: number) => (isSummer(labels[i]) ? 0 : labels.slice(0, i + 1).filter((l) => !isSummer(l)).length);
-  const planCodes = (i: number) => TEACHING_PLAN[major]?.[progTerm(i) - 1] ?? [];
+  const planCodes = (i: number) => TEACHING_PLAN[majorKey]?.[progTerm(i) - 1] ?? [];
   const wantedAt = (i: number) => planCodes(i).map((c) => courses.find((x) => x.code === c)).filter((c): c is PlanCourse => !!c && !enrolled.has(c.code));
   /** Đưa các môn của học kỳ chương trình thứ i vào đúng kỳ i (gỡ khỏi các kỳ khác); sửa trực tiếp `sems`. */
   const placeTerm = (sems: PlanData['sems'], i: number) => {
@@ -164,7 +170,7 @@ export function SemPlan({ data, onPlan, go }: { data: AppData; onPlan: (fn: (p: 
     return { ...p, sems };
   });
   const attemptsOf = (l: string) => data.attempts.filter((a) => canonSemester(a.semester) === l && !a.excluded);
-  const hasPlan = !!TEACHING_PLAN[major];
+  const hasPlan = !!TEACHING_PLAN[majorKey];
 
   /** Nhãn học kỳ trong danh sách “Chuyển…”: kèm cảnh báo nếu môn chưa đủ điều kiện ở kỳ đó */
   const optLabel = (x: string, cond: string) => {
@@ -204,7 +210,7 @@ export function SemPlan({ data, onPlan, go }: { data: AppData; onPlan: (fn: (p: 
       <div className="card progbar">
         <div className="form-row">
           {cohort && <span className="chip">{t('Khóa')} <b>K{String(cohort).slice(-2)}</b> · {t('chương trình đào tạo khóa {y}', { y: progYear })}{progYear !== cohort ? ` (${t('khóa 2024 và 2025 dùng chung 1 chương trình đào tạo')})` : ''}</span>}
-          <label>{t('Ngành')}<select value={major} onChange={(e) => setMajor(e.target.value)}>{MAJORS.map(([m, n]) => <option key={m} value={m}>{t(n)}</option>)}</select></label>
+          <label>{t('Ngành')}<select value={major} onChange={(e) => setMajor(e.target.value)}>{MAJORS.map(([m, n]) => <option key={m} value={m}>{t(n)}</option>)}{custom?.map((p) => <option key={p.id} value={`c:${p.id}`}>{`${p.majorName} · K${String(p.year).slice(-2)}${p.faculty ? ` · ${p.faculty}` : ''}`}</option>)}</select></label>
           <Hint><>
           <p className="hhead">{t('Kế hoạch toàn khóa')}</p>
           <ul>
@@ -237,7 +243,7 @@ export function SemPlan({ data, onPlan, go }: { data: AppData; onPlan: (fn: (p: 
       {extraErr && <p className="err small" role="alert">{extraErr}</p>}
       <datalist id="plan-codes">
         {candidates.map((c) => <option key={c.code} value={`${c.code} · ${c.name}`} label={`${c.required ? t('Bắt buộc') : t('Tự chọn')} · ${c.credits} ${t('tín chỉ')}`} />)}
-        {Object.entries(COURSE_DB).filter(([c]) => !candidates.some((x) => x.code === c)).map(([c, v]) => <option key={c} value={`${c} · ${v.n}`} />)}
+        {Object.entries(db).filter(([c]) => !candidates.some((x) => x.code === c)).map(([c, v]) => <option key={c} value={`${c} · ${v.n}`} />)}
       </datalist>
 
       {Array.from({ length: years }, (_, y) => {
@@ -280,7 +286,7 @@ export function SemPlan({ data, onPlan, go }: { data: AppData; onPlan: (fn: (p: 
                           <tr key={it.code}>
                             <td>{isPlaceholder(it.code) ? (it.name === PLACEHOLDER_NAME ? <><b>{t('Tự chọn')}</b> {t(PLACEHOLDER_NAME)}</> : <><b>{it.name}</b> <span className="muted small">({t('chưa chọn môn')})</span></>) : <><b>{it.code}</b> {it.name}</>}
                               {isInternship(it.name) && (isSummer(l) ? <div className="warnnote small">{t('Thực tập ngoài trường đăng ký ở HK1 (đi thực tập HK2) hoặc HK2 (đi thực tập kỳ hè), không đăng ký ở kỳ hè.')}</div> : <div className="muted small">{t('Đăng ký kỳ này, đi thực tập ở kỳ kế tiếp.')}</div>)}
-                              {miss.length > 0 && <div className="errline">{t('Chưa đủ điều kiện')}: {miss.map(condText).join('; ')}</div>}
+                              {miss.length > 0 && <div className="errline">{t('Chưa đủ điều kiện')}: {miss.map((x) => condText(x, db)).join('; ')}</div>}
                               {warnLines(l, it.code)}</td>
                             <td className="num">{it.credits}</td>
                             <td className="nowrap">
