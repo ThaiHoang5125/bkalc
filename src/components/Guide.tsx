@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { t } from '../i18n';
 import type { Go, Page } from '../App';
+import { PageHeader } from './ui';
 
 function Section({ id, title, page, sub, go, children }: { id: string; title: string; page?: Page; sub?: string; go: Go; children: ReactNode }) {
   return (
@@ -18,18 +19,18 @@ export function Guide({ go }: { go: Go }) {
   const toc: [string, string][] = [['start', t('Bắt đầu nhanh')], ['overview', t('Tổng quan')], ['transcript', t('Bảng điểm')], ['goals', t('Mục tiêu')], ['semplan', t('Kế hoạch')], ['timetable', t('Xếp lịch')], ['data', t('Dữ liệu & cài đặt')], ['faq', t('Hỏi đáp')]];
   return (
     <div className="stack">
-      <div className="card">
-        <h3>{t('Hướng dẫn sử dụng')}</h3>
-        <p>{t('Ứng dụng giúp sinh viên tính GPA, theo dõi tiến độ chương trình đào tạo, lên kế hoạch học kỳ và xếp thời khóa biểu. Mọi dữ liệu chỉ nằm trên máy của bạn. Thanh bên trái có 5 trang: Tổng quan, Bảng điểm, Mục tiêu, Kế hoạch, Xếp lịch; phía dưới là Dữ liệu & cài đặt.')}</p>
+      <PageHeader title={t('Hướng dẫn sử dụng')} sub={t('Ứng dụng giúp sinh viên tính GPA, theo dõi tiến độ chương trình đào tạo, lên kế hoạch học kỳ và xếp thời khóa biểu. Mọi dữ liệu chỉ nằm trên máy của bạn.')} />
+      <div className="card guidetoc">
+        <span className="muted small">{t('Chọn mục cần xem:')}</span>
         <div className="chips">{toc.map(([id, label]) => <button key={id} className="chip btn" onClick={() => jump(id)}>{label}</button>)}</div>
       </div>
 
       <Section id="start" title={t('Bắt đầu nhanh (3 bước)')} page="data" sub="data" go={go}>
-        <Steps>
-          <li>{t('Vào cổng thông tin sinh viên, tải 2 file PDF:')} <b>{t('Bảng điểm')}</b> {t('và')} <b>{t('Tiến độ học tập')}</b>.</li>
-          <li>{t('Mở')} <b>{t('Dữ liệu & cài đặt')}</b>{t(', bấm “Chọn file PDF…” (hoặc kéo thả vào khung), xem trước kết quả rồi bấm')} <b>{t('Nhập vào ứng dụng')}</b>{t('. Nhập một trong hai file cũng được.')}</li>
-          <li>{t('Xem')} <b>{t('Tổng quan')}</b>{t('. Muốn biết cần cố gắng bao nhiêu thì sang')} <b>{t('Mục tiêu')}</b>{t('; muốn lên kế hoạch các kỳ tới thì sang')} <b>{t('Kế hoạch')}</b>.</li>
-        </Steps>
+        <ol className="bigsteps">
+          <li><b>{t('Tải 2 file PDF')}</b><span>{t('Vào cổng thông tin sinh viên, tải')} <b>{t('Bảng điểm')}</b> {t('và')} <b>{t('Tiến độ học tập')}</b>.</span></li>
+          <li><b>{t('Nhập vào ứng dụng')}</b><span>{t('Mở')} <b>{t('Dữ liệu & cài đặt')}</b>{t(', bấm “Chọn file PDF…” (hoặc kéo thả vào khung), xem trước kết quả rồi bấm')} <b>{t('Nhập vào ứng dụng')}</b>{t('. Nhập một trong hai file cũng được.')}</span></li>
+          <li><b>{t('Xem kết quả')}</b><span>{t('Xem')} <b>{t('Tổng quan')}</b>{t('. Muốn biết cần cố gắng bao nhiêu thì sang')} <b>{t('Mục tiêu')}</b>{t('; muốn lên kế hoạch các kỳ tới thì sang')} <b>{t('Kế hoạch')}</b>.</span></li>
+        </ol>
         <p className="muted small">{t('Mỗi trang có nút ↶ ↷ ở góc phải trên để hoàn tác / làm lại (hoặc Ctrl+Z / Ctrl+Y). Thao tác thành công hiện thông báo nhỏ ở cuối màn hình, có nút “Hoàn tác” trong vài giây.')}</p>
       </Section>
 

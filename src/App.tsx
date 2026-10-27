@@ -24,8 +24,8 @@ const readCollapsed = () => { try { return localStorage.getItem(COLLAPSE_KEY) ==
 const pad2 = (n: number) => String(n).padStart(2, '0');
 const clock = (ts: number) => { const d = new Date(ts); return `${pad2(d.getHours())}:${pad2(d.getMinutes())}`; };
 
-export type Page = 'overview' | 'transcript' | 'goals' | 'semplan' | 'timetable' | 'data';
-/** Chuyển trang, kèm (nếu cần) chế độ xem con của trang đó: bảng điểm 'sem' | 'group', mục tiêu 'target' | 'courses', xếp lịch '1' | '2' | '3', dữ liệu 'data' | 'settings' | 'guide'. */
+export type Page = 'overview' | 'transcript' | 'goals' | 'semplan' | 'timetable' | 'guide' | 'data';
+/** Chuyển trang, kèm (nếu cần) chế độ xem con của trang đó: bảng điểm 'sem' | 'group', mục tiêu 'target' | 'courses', xếp lịch '1' | '2' | '3', dữ liệu 'data' | 'settings'. */
 export type Go = (page: Page, sub?: string) => void;
 
 const Ico = ({ children }: { children: ReactNode }) => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{children}</svg>;
@@ -35,10 +35,11 @@ const ICONS: Record<Page, ReactNode> = {
   goals: <Ico><circle cx="12" cy="12" r="8" /><circle cx="12" cy="12" r="3" /></Ico>,
   semplan: <Ico><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" /></Ico>,
   timetable: <Ico><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M3 10h18M8 3v4M16 3v4" /></Ico>,
+  guide: <Ico><circle cx="12" cy="12" r="9" /><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01" /></Ico>,
   data: <Ico><circle cx="12" cy="12" r="3" /><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1" /></Ico>,
 };
 export const PORTFOLIO_URL = 'https://candid-truffle-741aaf.netlify.app/';
-export const NAV = (): [Page, string][] => [['overview', t('Tổng quan')], ['transcript', t('Bảng điểm')], ['goals', t('Mục tiêu')], ['semplan', t('Kế hoạch')], ['timetable', t('Xếp lịch')]];
+export const NAV = (): [Page, string][] => [['overview', t('Tổng quan')], ['transcript', t('Bảng điểm')], ['goals', t('Mục tiêu')], ['semplan', t('Kế hoạch')], ['timetable', t('Xếp lịch')], ['guide', t('Hướng dẫn')]];
 
 export function App({ initial }: { initial: AppData }) {
   useLang();
@@ -141,7 +142,8 @@ export function App({ initial }: { initial: AppData }) {
             {page === 'goals' && <Goals data={data} view={view('goals', 'target') as 'target' | 'courses'} setView={setSub('goals')} onSettings={store.updateSettings} onAdd={store.addAttempts} onUpdate={store.updateAttempt} onRemove={store.removeAttempt} />}
             {page === 'semplan' && <SemPlan data={data} onPlan={store.updatePlan} go={go} />}
             {page === 'timetable' && <Timetable data={data} step={subs.timetable as '1' | '2' | '3' | undefined} setStep={setSub('timetable')} plannedHere={(data.plan?.sems[data.timetable?.semester ?? ''] ?? []).map((x) => x.code)} onChange={store.updateTimetable} />}
-            {page === 'data' && <DataPage data={data} view={view('data', 'data') as 'data' | 'settings' | 'guide'} setView={setSub('data')} go={go} onAdd={store.addAttempts} onSettings={store.updateSettings} onReplace={store.replaceAll} onTranscript={store.applyTranscript} onProgress={store.applyProgress} guide={<Guide go={go} />} />}
+            {page === 'data' && <DataPage data={data} view={view('data', 'data') as 'data' | 'settings'} setView={setSub('data')} go={go} onAdd={store.addAttempts} onSettings={store.updateSettings} onReplace={store.replaceAll} onTranscript={store.applyTranscript} onProgress={store.applyProgress} />}
+            {page === 'guide' && <Guide go={go} />}
           </main>
           <a className="credit" href={PORTFOLIO_URL} target="_blank" rel="noopener noreferrer" title={t('Xem trang giới thiệu của tác giả')}>{t('Tác giả')}: <b>Thái Hoàng</b> <span aria-hidden>↗</span></a>
           {dialog === 'add' && <QuickAddDialog data={data} onAdd={store.addAttempts} onClose={() => setDialog(null)} />}

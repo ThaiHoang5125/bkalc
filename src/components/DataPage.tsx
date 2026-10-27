@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react';
-import type { ReactNode } from 'react';
 import type { AppData, Attempt, Settings } from '../engine';
 import { canonSemester, computeProgress, effectiveTotal, failLimit, parsePasted, programTotal, semesterAt, semesterLabel, verify } from '../engine';
 import { SemesterSelect } from './SemesterSelect';
@@ -18,13 +17,12 @@ import { writeBackup } from '../backup';
 import { PrivacyDialog } from './Privacy';
 import type { Go } from '../App';
 
-type View = 'data' | 'settings' | 'guide';
+type View = 'data' | 'settings';
 interface Props {
   data: AppData;
   view: View;
   setView: (v: View) => void;
   go: Go;
-  guide: ReactNode;
   onAdd: (rows: Attempt[]) => void;
   onSettings: (p: Partial<Settings>) => void;
   onReplace: (d: AppData) => void;
@@ -49,7 +47,7 @@ function Warnings({ list, ocr }: { list: string[]; ocr?: boolean }) {
   );
 }
 
-export function DataPage({ data, view, setView, guide, onAdd, onSettings, onReplace, onTranscript, onProgress }: Props) {
+export function DataPage({ data, view, setView, onAdd, onSettings, onReplace, onTranscript, onProgress }: Props) {
   useLang();
   const toast = useToast();
   const theme = useTheme();
@@ -140,7 +138,7 @@ export function DataPage({ data, view, setView, guide, onAdd, onSettings, onRepl
   };
   const themes: [ThemePref, string][] = [['light', t('Sáng')], ['dark', t('Tối')], ['system', t('Theo hệ thống')]];
   const lang = useLang();
-  const views: [View, string][] = [['data', t('Dữ liệu')], ['settings', t('Cài đặt')], ['guide', t('Hướng dẫn')]];
+  const views: [View, string][] = [['data', t('Dữ liệu')], ['settings', t('Cài đặt')]];
 
   return (
     <div className="stack">
@@ -163,8 +161,6 @@ export function DataPage({ data, view, setView, guide, onAdd, onSettings, onRepl
         {views.map(([k, l]) => <button key={k} aria-pressed={view === k} onClick={() => setView(k)}>{l}</button>)}
       </div>
       {errMsg && <div className="banner err" role="alert">{errMsg}</div>}
-
-      {view === 'guide' && guide}
 
       {privacy && <PrivacyDialog onClose={() => setPrivacy(false)} />}
 

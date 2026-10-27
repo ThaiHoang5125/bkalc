@@ -166,7 +166,7 @@ export function Dashboard({ data, go }: { data: AppData; go: Go }) {
     return (
       <div className="page">{head}
         <div className="card empty"><h2>{t('Chào mừng!')}</h2><p>{t('Chưa có dữ liệu. Nhập PDF Bảng điểm và Tiến độ từ cổng sinh viên ở mục “Dữ liệu & cài đặt”, hoặc tự thêm môn ở trang “Bảng điểm”.')}</p>
-          <button className="primary" onClick={() => go('data', 'data')}>{t('Nhập dữ liệu')}</button>{' '}<button onClick={() => go('data', 'guide')}>{t('Xem hướng dẫn')}</button></div>
+          <button className="primary" onClick={() => go('data', 'data')}>{t('Nhập dữ liệu')}</button>{' '}<button onClick={() => go('guide')}>{t('Xem hướng dẫn')}</button></div>
       </div>);
   }
 
