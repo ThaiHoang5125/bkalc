@@ -543,7 +543,7 @@ button.block { width: 100%; margin-top: 8px; }
 @media (max-width: 720px) { .gprog .gname { display: none; } .gprog button.on .gname { display: inline; } }
 .gshots { display: grid; gap: 14px; margin-top: 14px; }
 .gshot { margin: 0; }
-.gshot figcaption { font-size: var(--fs-sm); color: var(--ink); margin-top: 8px; font-weight: 500; }
+.gshot figcaption { font-size: 16px; line-height: 1.55; color: var(--ink); margin-top: 10px; padding: 10px 14px; background: var(--sunken); border-radius: 10px; font-weight: 600; }
 .gnav { display: flex; justify-content: space-between; gap: 12px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line-soft); }
 figure.shot { margin: 8px 0 14px; } figure.shot img { display: block; width: 100%; max-width: 1100px; border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow-sm); }
 figure.shot figcaption { font-size: 12px; color: var(--muted); margin-top: 4px; }
