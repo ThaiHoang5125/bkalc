@@ -1,8 +1,7 @@
 name: Deploy web (GitHub Pages)
 
 on:
-  push:
-    branches: [main, master]
+  # Bản chính chạy trên Netlify (netlify.toml); workflow này chỉ chạy tay làm dự phòng
   workflow_dispatch:
 
 permissions:
