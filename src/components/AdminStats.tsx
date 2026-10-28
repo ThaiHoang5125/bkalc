@@ -19,6 +19,7 @@ function Chart({ points, from, to, range }: { points: Point[]; from: number; to:
   const data = useMemo(() => downsample(fillGaps(points, from, to), STEPS[range]), [points, from, to, range]);
   const top = Math.max(1, ...data.map((p) => p.peak));
   const yMax = top <= 4 ? top : Math.ceil(top / 2) * 2;
+  const yTicks = yMax <= 4 ? Array.from({ length: yMax + 1 }, (_, i) => i) : [0, yMax / 2, yMax]; // luôn là số nguyên, không trùng nhãn
   const x = (i: number) => L + (data.length <= 1 ? 0 : (i / (data.length - 1)) * (W - L - R));
   const y = (v: number) => T + (1 - v / yMax) * (H - T - B);
   const line = data.map((p, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)} ${y(p.peak).toFixed(1)}`).join('');
@@ -29,7 +30,7 @@ function Chart({ points, from, to, range }: { points: Point[]; from: number; to:
   return (
     <figure className="adminchart">
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={t('Đồ thị số người truy cập cao nhất theo thời gian')}>
-        {[0, 0.5, 1].map((f) => <g key={f}><line x1={L} x2={W - R} y1={y(f * yMax)} y2={y(f * yMax)} stroke="var(--line)" /><text x={L - 6} y={y(f * yMax) + 4} textAnchor="end" fontSize="11" fill="var(--muted)">{Math.round(f * yMax)}</text></g>)}
+        {yTicks.map((v) => <g key={v}><line x1={L} x2={W - R} y1={y(v)} y2={y(v)} stroke="var(--line)" /><text x={L - 6} y={y(v) + 4} textAnchor="end" fontSize="11" fill="var(--muted)">{v}</text></g>)}
         {area && <path d={area} fill="var(--accent-soft)" />}
         {line && <path d={line} fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinejoin="round" />}
         {ticks.map((p, i) => <text key={p.ts} x={x(data.indexOf(p))} y={H - 8} textAnchor={i === 0 ? 'start' : i === ticks.length - 1 ? 'end' : 'middle'} fontSize="11" fill="var(--muted)">{stamp(p.ts, withTime)}</text>)}
