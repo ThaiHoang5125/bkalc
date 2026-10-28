@@ -8,6 +8,7 @@ import { DataPage } from './components/DataPage';
 import { SemPlan } from './components/SemPlan';
 import { Timetable } from './components/Timetable';
 import { Transcript } from './components/Transcript';
+import { AdminStats } from './components/AdminStats';
 import { useStore } from './store';
 import type { AppData } from './engine';
 import { saveData } from './persist';
@@ -53,7 +54,7 @@ export function App({ initial }: { initial: AppData }) {
   const theme = useTheme();
   const [page, setPage] = useState<Page>('overview');
   const [collapsed, setCollapsed] = useState(readCollapsed);
-  const [dialog, setDialog] = useState<'add' | 'search' | null>(null);
+  const [dialog, setDialog] = useState<'add' | 'search' | 'stats' | null>(null);
   const [jump, setJump] = useState({ q: '', n: 0 });
   const [subs, setSubs] = useState<Partial<Record<Page, string>>>({});
   const { data } = store;
@@ -108,6 +109,13 @@ export function App({ initial }: { initial: AppData }) {
     return () => window.removeEventListener('keydown', h);
   }, [go]);
 
+  useEffect(() => {
+    if (window.gpaApi) return; // bản .exe không có thống kê (Ctrl+Shift+F12 là hộp mã bảo trì)
+    const h = (e: KeyboardEvent) => { if (e.ctrlKey && e.shiftKey && !e.altKey && e.key === 'F12') { e.preventDefault(); setDialog('stats'); } };
+    window.addEventListener('keydown', h);
+    return () => window.removeEventListener('keydown', h);
+  }, []);
+
   const hist = useMemo(() => ({ undo: store.undo, redo: store.redo, canUndo: store.canUndo, canRedo: store.canRedo }), [store.undo, store.redo, store.canUndo, store.canRedo]);
   const view = <K extends Page>(p: K, fallback: string) => subs[p] ?? fallback;
 
@@ -147,6 +155,7 @@ export function App({ initial }: { initial: AppData }) {
             {page === 'guide' && <Guide go={go} />}
           </main>
           <a className="credit" href={PORTFOLIO_URL} target="_blank" rel="noopener noreferrer" title={t('Xem trang giới thiệu của tác giả')}>{t('Tác giả')}: <b>Thái Hoàng</b> <span aria-hidden>↗</span></a>
+          {dialog === 'stats' && <AdminStats onClose={() => setDialog(null)} />}
           {dialog === 'add' && <QuickAddDialog data={data} onAdd={store.addAttempts} onClose={() => setDialog(null)} />}
           {dialog === 'search' && <SearchDialog attempts={data.attempts} onClose={() => setDialog(null)} onPick={(q) => { setDialog(null); setJump((j) => ({ q, n: j.n + 1 })); go('transcript', 'sem'); }} />}
         </div>

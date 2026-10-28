@@ -695,3 +695,12 @@ main > .page { animation: fade-in 150ms var(--ease-out); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* Thống kê truy cập (màn hình quản trị, chỉ bản web) */
+.modalbox.adminbox { max-width: 720px; }
+.adminbox h3 { margin: 0; }
+.adminform { display: grid; gap: 12px; } .adminform label { display: grid; gap: 6px; font-size: var(--fs-sm); color: var(--muted); } .adminform p { margin: 0; }
+.adminhead { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.adminonline { display: flex; align-items: baseline; gap: 8px; } .adminonline b { font-size: 32px; line-height: 1; color: var(--accent-text); } .adminonline span { color: var(--muted); }
+.adminchart { margin: 0; display: grid; gap: 6px; } .adminchart svg { width: 100%; height: auto; display: block; } .adminchart figcaption { font-size: var(--fs-sm); color: var(--muted); }
+

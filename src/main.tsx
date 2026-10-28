@@ -10,6 +10,7 @@ import { LegacyGate } from './components/Legacy';
 import { loadData } from './persist';
 import type { Loaded } from './persist';
 import { useLang } from './i18n';
+import { startPresence } from './online';
 import './locales/en';
 import './styles.css';
 
@@ -21,6 +22,8 @@ function Root() {
   if (loaded.locked) return <LegacyGate accounts={loaded.locked} onDone={(data) => setLoaded({ locked: null, data })} />;
   return <App initial={loaded.data} />;
 }
+
+startPresence();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
